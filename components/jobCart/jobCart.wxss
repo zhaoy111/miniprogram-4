@@ -1,0 +1,28 @@
+/* components/jobCart/jobCart.wxss */
+.job_cart {
+  margin: 20rpx;
+  padding: 20rpx;
+  border-radius: 16rpx;
+  height: 150rpx;
+  background: white;
+}
+
+.job_title {
+  font-size: 30rpx;
+  font: italic arial, sans-serif;
+  margin-bottom: 20rpx;
+}
+
+.job_content {
+  font-size: 25rpx;
+  margin-bottom: 10rpx;
+  padding: 0 10rpx;
+}
+.job_text{
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  -webkit-box-orient:vertical;
+  word-break:break-all;
+}

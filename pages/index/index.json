@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "jobCart" : "/components/jobCart/jobCart"
+  },
+  "navigationBarTitleText": "江汽物流"
+}
