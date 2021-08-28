@@ -1,13 +1,13 @@
 <swiper autoplay="true" circular="true" indicator-dots="true">
-  <swiper-item wx:for="{{indexImage}}" wx:key="this">
+  <swiper-item wx:for="{{indexImage}}" wx:key="url">
     <van-image width="100%" height="100%" fill="contain" src="{{item.url}}" />
   </swiper-item>
 </swiper>
 <van-row gutter="10" class="search_row">
   <van-col span="18" offset="2">
     <van-cell-group>
-      <van-field value="{{ value }}" placeholder="请输入用户名" border="true" placeholder="请输入关键文字搜索"
-        bindchange="onChange" use-button-slot>
+      <van-field value="{{ value }}" placeholder="请输入用户名" border="true" placeholder="请输入关键文字搜索" bindchange="onChange"
+        use-button-slot>
         <van-button slot="button" size="small" type="primary">
           查询
         </van-button>
@@ -16,10 +16,10 @@
   </van-col>
   <van-col span="2">
     <navigator url="/pages/logs/logs" hover-class="none">
-      <van-icon name="gift-o" info="10" size="30" style="margin-top:10px"/>
+      <van-icon name="gift-o" info="10" size="30" style="margin-top:10px" />
     </navigator>
   </van-col>
 </van-row>
 <view class="job_carts">
-  <jobCart wx:for="{{10}}"></jobCart>
+  <jobCart wx:for="{{10}}" wx:key="this"></jobCart>
 </view>

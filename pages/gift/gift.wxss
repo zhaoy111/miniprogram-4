@@ -1,0 +1,36 @@
+/* pages/gift/gift.wxss */
+page{
+  background: rgb(245, 244, 244);
+}
+
+.cart{
+  padding-top: 10px;
+}
+
+.search_panel{
+  padding: 0 10%;
+  background: white;
+}
+
+.tip_panel{
+  font-size: 35rpx;
+  margin: 10rpx 2%;
+  color: red;
+  align-content: center;
+  text-align: center;
+}
+
+.sort{
+  color: black;
+}
+
+.tip{
+  background: white;
+  padding: 10rpx 10rpx;
+  border-radius: 35rpx;
+}
+
+van-dropdown-menu{
+  height: 35rpx;
+  border-radius: 35rpx;
+}

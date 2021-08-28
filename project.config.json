@@ -40,7 +40,7 @@
     ]
   },
   "compileType": "miniprogram",
-  "libVersion": "2.19.2",
+  "libVersion": "2.15.0",
   "appid": "wx9056ff2b20e17394",
   "projectname": "miniprogram-4",
   "debugOptions": {
@@ -78,6 +78,13 @@
           "id": -1,
           "name": "岗位卡片组件",
           "pathName": "components/jobCart/jobCart",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "积分兑换",
+          "pathName": "pages/gift/gift",
           "scene": null
         }
       ]

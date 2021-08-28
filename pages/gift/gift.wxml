@@ -1,0 +1,46 @@
+<!-- 搜索框 + 购物车 面板 开始 -->
+<view class="search_panel">
+  <van-row gutter="10">
+    <van-col span="20">
+      <van-cell-group>
+        <van-field value="{{ searchValue }}" placeholder="请输入关键文字搜索" border="{{ true }}" bind:change="onChange"
+          use-button-slot>
+          <van-button slot="button" size="small" type="primary">搜索</van-button>
+        </van-field>
+      </van-cell-group>
+    </van-col>
+    <van-col span="4">
+      <view class="cart">
+        <van-icon name="cart-o" size="30px" info="10" />
+      </view>
+    </van-col>
+  </van-row>
+</view>
+<!-- 搜索框 + 购物车 面板 结束 -->
+<!-- 积分规则 + 邀请码 + 礼物类别 开始 -->
+<view class="tip_panel">
+  <van-row gutter="10">
+    <van-col span="8">
+      <view class="tip">
+        <navigator url="/pages/logs/logs" hover-class="none">
+          <van-icon name="diamond-o" /> 积分规则
+        </navigator>
+      </view>
+    </van-col>
+    <van-col span="8">
+      <view class="tip">
+        <navigator url="/pages/logs/logs" hover-class="none">
+          <van-icon name="qr" /> 邀请码
+        </navigator>
+      </view>
+    </van-col>
+    <van-col span="8">
+      <view class="sort">
+        <van-dropdown-menu>
+          <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" />
+        </van-dropdown-menu>
+      </view>
+    </van-col>
+  </van-row>
+</view>
+<!-- 积分规则 + 邀请码 + 礼物类别 结束 -->
