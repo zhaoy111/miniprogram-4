@@ -15,8 +15,8 @@
     </van-cell-group>
   </van-col>
   <van-col span="2">
-    <navigator url="/pages/logs/logs">
-      <van-icon name="gift-o" info  ="10" size="30" style="margin-top:10px"/>
+    <navigator url="/pages/logs/logs" hover-class="none">
+      <van-icon name="gift-o" info="10" size="30" style="margin-top:10px"/>
     </navigator>
   </van-col>
 </van-row>
