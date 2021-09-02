@@ -1,42 +1,42 @@
 <view class="job_cart">
-  <navigator hover-class="none" url="/pages/logs/logs">
+  <navigator hover-class="none" url="/pages/jobDetail/index?job_id={{job_id}}">
 
     <view class="job_title">
       <van-row>
-        <van-col span="16">岗位1</van-col>
+        <van-col span="16">{{job_name}}</van-col>
       </van-row>
     </view>
     <!-- 技术类型 + 截至日期  开始-->
     <view class="job_content">
       <van-row>
         <van-col span="1">
-          <van-icon name="apps-o" />
+          <van-icon name="apps-o"/>
         </van-col>
         <van-col span="11">
-          <text class="job_text">技术岗位技术岗位技术岗位技术岗位技术岗位技术岗位技术岗位技术岗位技术岗位技术岗位技术岗位技术岗位技术岗位</text></van-col>
+          <text class="job_text">{{job_type}}</text></van-col>
         <van-col span="1" offset="4">
           <van-icon name="underway-o" />
         </van-col>
         <van-col span="7">
-          <text class="job_text">2021-08-28</text>
+          <text class="job_text">{{job_date}}</text>
         </van-col>
       </van-row>
     </view>
     <!-- 技术类型 + 截至日期  结束-->
-    <!-- 工作地址 + 招聘人数  开始-->
+    <!-- 工作地址 + 岗位薪资  开始-->
     <view class="job_content">
       <van-row>
         <van-col span="1">
           <van-icon name="location-o" />
         </van-col>
         <van-col span="11">
-          <text class="job_text">合肥</text>
+          <text class="job_text">{{job_address}}</text>
         </van-col>
         <van-col span="1" offset="4">
-          <van-icon name="friends-o" />
+          <van-icon name="balance-pay" />
         </van-col>
         <van-col span="7">
-          <text class="job_text">若干</text>
+          <text class="job_text">{{job_salary}}</text>
         </van-col>
       </van-row>
     </view>

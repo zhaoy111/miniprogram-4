@@ -1,7 +1,42 @@
+<!-- 积分规则 + 邀请码 开始 -->
+<van-dialog use-slot title="如何获取积分？" show="{{ show }}" bind:close="onClose" bind:getuserinfo="getUserInfo">
+  <view class="help">
+    <rich-text nodes="{{help}}"></rich-text>
+  </view>
+</van-dialog>
+
+<van-dialog use-slot title="邀请码" show="{{ show2 }}" bind:close="onClose" bind:getImage="getImage">
+  <view style="text-align:center;margin:50rpx 0;">
+    <van-image width="100" height="100" src="/images/job.jpg" />
+  </view>
+</van-dialog>
+
+<view class="tip_panel">
+  <van-row gutter="10">
+    <van-col span="7">
+      <view class="tip" bindtap="getHelp">
+        <van-icon name="diamond-o" /> 积分规则
+      </view>
+    </van-col>
+    <van-col span="6">
+      <view class="tip">
+        <view bindtap="getShow2">
+          <van-icon name="qr" /> 邀请码
+        </view>
+      </view>
+    </van-col>
+    <van-col span="11">
+      <view class="tip" style="color:black">
+        我的积分:<text style="color:red">50</text>
+      </view>
+    </van-col>
+  </van-row>
+</view>
+<!-- 积分规则 + 邀请码  结束 -->
 <!-- 搜索框 + 购物车 面板 开始 -->
 <view class="search_panel">
   <van-row gutter="10">
-    <van-col span="20">
+    <van-col span="22">
       <van-cell-group>
         <van-field value="{{ searchValue }}" placeholder="请输入关键文字搜索" border="{{ true }}" bind:change="onChange"
           use-button-slot>
@@ -9,38 +44,27 @@
         </van-field>
       </van-cell-group>
     </van-col>
-    <van-col span="4">
-      <view class="cart">
-        <van-icon name="cart-o" size="30px" info="10" />
-      </view>
+    <van-col span="2">
+      <navigator url="/pages/shopHistory/index" hover-class="none">
+        <view class="cart">
+          <van-icon name="cart-o" size="30px" info="10" />
+        </view>
+      </navigator>
     </van-col>
   </van-row>
 </view>
 <!-- 搜索框 + 购物车 面板 结束 -->
-<!-- 积分规则 + 邀请码 + 礼物类别 开始 -->
-<view class="tip_panel">
-  <van-row gutter="10">
-    <van-col span="8">
-      <view class="tip">
-        <navigator url="/pages/logs/logs" hover-class="none">
-          <van-icon name="diamond-o" /> 积分规则
-        </navigator>
-      </view>
-    </van-col>
-    <van-col span="8">
-      <view class="tip">
-        <navigator url="/pages/logs/logs" hover-class="none">
-          <van-icon name="qr" /> 邀请码
-        </navigator>
-      </view>
-    </van-col>
-    <van-col span="8">
-      <view class="sort">
-        <van-dropdown-menu>
-          <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" />
-        </van-dropdown-menu>
-      </view>
-    </van-col>
-  </van-row>
+<!-- 礼物类别 开始 -->
+<view style="margin-top:20rpx">
+  <van-dropdown-menu>
+    <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" />
+  </van-dropdown-menu>
 </view>
-<!-- 积分规则 + 邀请码 + 礼物类别 结束 -->
+<!--  礼物类别 结束 -->
+<!-- 积分兑换礼品 开始 -->
+<view style="margin-bottom: 50px;">
+  <giftCart wx:for="{{gifts}}" gift_id="{{item.gift_id}}" gift_image="{{item.gift_image}}"
+    gift_name="{{item.gift_name}}" gift_desc="{{item.gift_desc}}" gift_type="{{item.gift_type}}"
+    gift_credit="{{item.gift_credit}}" wx:key="this"></giftCart>
+</view>
+<!-- 积分兑换礼品 结束 -->

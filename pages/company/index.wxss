@@ -1,0 +1,46 @@
+/* pages/company/index.wxss */
+
+.panel {
+  margin: 20rpx 10rpx;
+}
+
+.company_name {
+  font-size: 40rpx;
+  font-weight: bolder;
+  padding: 10rpx 20rpx;
+}
+
+.company_status {
+  font-size: small;
+  font-weight: 200;
+  padding: 10rpx 20rpx;
+}
+
+.company_welfare {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.company_welfare_panel {
+  text-align: center;
+  vertical-align: middle;
+  margin-left: 40rpx;
+  padding: 10rpx 30rpx;
+  border: solid rgb(34, 33, 33) 2rpx;
+  /* border-radius: 30rpx; */
+}
+
+.title{
+  font-size: 35rpx;
+  font-weight: bold;
+  margin: 45rpx 20rpx 20rpx;
+}
+
+.content{
+  margin-left: 20rpx;
+}
+
+.company_welfare_{
+  margin: 0 20rpx;
+}

@@ -1,3 +1,5 @@
+const { http } = require("../../utils/request");
+
 // pages/gift/gift.js
 Page({
 
@@ -7,13 +9,36 @@ Page({
   data: {
     searchValue:"",
     option1: [
-      { text: '全部商品', value: 0 },
-      { text: '新款商品', value: 1 },
-      { text: '活动商品', value: 2 },
+      { text: '全部', value: 0 },
+      { text: '礼物', value: 1 },
+      { text: '福利', value: 2 },
     ],
     value1: 0,
+    gifts:[],
+    show: false,
+    show2: false,
+    help:'',
   },
 
+  getUserInfo(event) {
+    console.log(event.detail);
+  },
+
+  onClose() {
+    this.setData({ show: false });
+  },
+
+  getImage(){
+    this.setData({ show2: false });
+  },
+
+  getShow2(){
+    this.setData({ show2: true });
+  },
+
+  getHelp(e) {
+    this.setData({ show: true });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -21,6 +46,8 @@ Page({
     wx.showLoading({
       title: '页面加载中',
     })
+    http({url:'http://120.55.59.119:1880/v1?fun1=gifts&fun2=all'}).then(data =>{this.setData({gifts:data.data})});
+    http({url:'http://120.55.59.119:1880/v1?fun1=score&fun2=help'}).then(d=>{this.setData({help:d.data})});
   },
 
   onChange : function(e) {

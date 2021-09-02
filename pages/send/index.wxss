@@ -1,0 +1,37 @@
+/* pages/send/index.wxss */
+page{
+  background: rgb(241, 240, 240);
+}
+
+.panel1{
+  padding-top: 50%;
+  text-align: center;
+}
+
+.panel2{
+  background: white;
+  margin: 10rpx;
+  margin-right: 0rpx;
+  padding: 10rpx;
+  border-radius: 30rpx;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.job_name{
+  font-weight: bold;
+  font-size: larger;
+}
+
+.job_address{
+  font-size: small;
+}
+
+.delete{
+  height: 101.6px;
+  width: 55px;
+  border-bottom-right-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  background-color: red;
+  text-align: center;
+}

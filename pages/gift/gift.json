@@ -1,4 +1,6 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "giftCart":"/components/giftCart/giftCart"
+  },
   "navigationBarTitleText": "积分兑换"
 }

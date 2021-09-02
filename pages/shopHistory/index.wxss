@@ -1,0 +1,15 @@
+/* pages/shopHistory/index.wxss */
+.title{
+  text-align: center;
+  font-size: large;
+  background: white
+}
+.content{
+  background: white;
+  margin: 10rpx;
+  padding: 20rpx;
+  border-radius: 30rpx;
+}
+page{
+  background: rgb(241, 237, 237);
+}

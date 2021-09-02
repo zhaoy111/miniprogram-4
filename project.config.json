@@ -4,9 +4,9 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": true,
+    "urlCheck": false,
     "es6": true,
-    "enhance": false,
+    "enhance": true,
     "postcss": true,
     "preloadBackgroundData": false,
     "minified": true,
@@ -85,6 +85,48 @@
           "id": -1,
           "name": "积分兑换",
           "pathName": "pages/gift/gift",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 2,
+          "name": "购物车组件",
+          "pathName": "components/giftCart/giftCart",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "个人中心",
+          "pathName": "pages/user/user",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": 4,
+          "name": "岗位细节",
+          "pathName": "pages/jobDetail/index",
+          "query": "job_id=123",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "公司介绍",
+          "pathName": "pages/company/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "投递记录",
+          "pathName": "pages/send/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "购物车记录",
+          "pathName": "pages/shopHistory/index",
           "scene": null
         }
       ]

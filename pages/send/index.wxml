@@ -1,0 +1,25 @@
+<view wx:if="{{send_job.length==0}}" class="panel1">
+  <view>
+    <van-button type="primary" bindtap="sendJob">点击进行投递简历</van-button>
+  </view>
+</view>
+<view wx:else="{{send_job.length>=0}}">
+  <van-swipe-cell wx:for="{{send_job}}" wx:key="job_id" right-width="{{ item.steps.length === (item.active + 1) ? '0' : '65' }}">
+    <navigator url="/pages/jobDetail/index?job_id={{item.job_id}}" hover-class="none">
+      <view class="panel2">
+        <van-row>
+          <van-col span="16" class="job_name">{{item.job_name}}</van-col>
+          <van-col span="8" class="job_address">
+            <van-icon name="location-o" /> {{item.job_address}}</van-col>
+          <van-col span="24">
+            <van-steps steps="{{ item.steps }}" active="{{ item.active }}"
+              active-color="{{item.steps.length === (item.active + 1) ? 'green' : 'red'}}" />
+          </van-col>
+        </van-row>
+      </view>
+    </navigator>
+    <view slot="right" class="delete">
+      <view style="padding-top:70%">撤销</view>
+    </view>
+  </van-swipe-cell>
+</view>

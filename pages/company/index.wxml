@@ -1,0 +1,76 @@
+<!-- 公司名称 状态 logo 开始 -->
+<meta name="referrer" content="no-referrer" />
+<view class="panel">
+  <van-row>
+    <van-col span="18">
+      <view class="company_name">
+        安徽江汽物流有限公司
+      </view>
+      <view class="company_status">
+        已上市 · 500人以上 · 物流运输
+      </view>
+    </van-col>
+    <van-col span="6">
+      <!-- <van-image width="100" height="100" src="https://img.yzcdn.cn/vant/cat.jpeg" /> -->
+    </van-col>
+  </van-row>
+</view>
+<!-- 公司名称 状态 logo 结束 -->
+
+<!-- 公司福利 开始-->
+<view class="company_welfare_">
+  <van-row gutter="4">
+    <van-col span="6" wx:for="{{data_test}}" wx:key="this">
+      <van-tag color="{{ randomColor[index] }}" plain="true" mask>{{item}}</van-tag>
+    </van-col>
+  </van-row>
+</view>
+<!-- <view>
+  <scroll-view scroll-x="true">
+    <view class="company_welfare">
+      <view class="company_welfare_panel">五险一金</view> 
+      <view class="company_welfare_panel">带薪休假</view> 
+      <view class="company_welfare_panel">免费单身公寓</view> 
+      <view class="company_welfare_panel">家庭套房</view> 
+      <view class="company_welfare_panel">家庭套房</view> 
+      <view class="company_welfare_panel">免费班车</view> 
+      <view class="company_welfare_panel">内部购车福利</view> 
+      <view class="company_welfare_panel">免费加班餐</view> 
+      <view class="company_welfare_panel">免费体检</view> 
+      <view class="company_welfare_panel">大病救助</view> 
+      <view class="company_welfare_panel">互助帮困基金</view> 
+    </view>
+  </scroll-view>
+</view> -->
+<!-- 公司福利 结束-->
+
+<!-- 公司地址 开始 -->
+<view>
+  <view class="title">公司地址</view>
+  <view class="content">合肥市北张路与浮莲路交口</view>
+</view>
+<!-- 公司地址 结束 -->
+
+<!-- 公司介绍 开始 -->
+<view>
+  <view class="title">公司介绍</view>
+  <view class="content">企业规模：位于安徽省省会合肥市，2003年元月成立，注册资本10408万，自有员工500余人，服务我单位驾驶员4000余人，
+    2019年实现营业收入超8亿元。企业性质：上市公司江淮汽车（股票代码：600418）的全资子公司、省属国有企业、AAAA级物流企业。核心业务：销售物流、供应链物流、客运服务等。更多信息请登录公司官网及微信公众号了解。</view>
+</view>
+<!-- 公司介绍 结束 -->
+
+<!-- 公司相册 开始 -->
+<view>
+  <view class="title">公司相册({{image.videos.length + image.photos.length}})</view>
+  <scroll-view scroll-x="true">
+    <view style="display:flex">
+      <view style="width:600rpx;margin:10rpx" wx:for="{{image.videos}}" wx:key="this">
+        <video muted="true" show-mute-btn="true" src="{{item}}" object-fit="fill"></video>
+      </view>
+      <view style="width:600rpx;margin:10rpx" wx:for="{{image.photos}}" wx:key="this">
+        <van-image src="{{item}}" width="600rpx" height="100%" fit="fill"></van-image>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+<!-- 公司相册 结束 -->

@@ -1,2 +1,106 @@
-<!--pages/user/user.wxml-->
-<text>pages/user/user.wxml</text>
+<view class="user_info">
+  <van-row wx:if="{{hasUserInfo}}">
+    <van-col span="8">
+      <van-image round width="100px" height="100px" src="{{userInfo.avatarUrl}}" />
+    </van-col>
+    <van-col span="16">
+      <view class="user_name">{{userInfo.nickName}}</view>
+      <view></view>
+      <view class="user_phone">手机号：187 3659 6546</view>
+    </van-col>
+  </van-row>
+  <van-row wx:else>
+    <van-col span="8">
+      <van-image round width="100px" height="100px" src="{{userInfo.avatarUrl}}" />
+    </van-col>
+    <van-col span="16">
+      <button style="margin-top:50rpx" wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 点击登录 </button>
+    </van-col>
+  </van-row>
+</view>
+<!-- 简历与测评 开始-->
+<view class="user_panel">
+  <view class="title_panel">
+    我的
+  </view>
+  <van-row>
+    <van-col span="6">
+      <navigator url="/pages/resume/index" hover-class="none">
+        <view class="icon">
+          <van-icon name="newspaper-o" size="35" />
+        </view>
+        <view class="font"><text style="color:red;font-weight:900">| </text>我的简历</view>
+      </navigator>
+    </van-col>
+    <van-col span="6">
+      <view class="icon">
+        <van-icon name="notes-o" size="35" />
+      </view>
+      <view class="font"><text style="color:red;font-weight:900">| </text>我的测评</view>
+    </van-col>
+    <van-col span="6">
+      <view class="icon">
+        <van-icon name="underway-o" size="35" />
+      </view>
+      <view class="font"><text style="color:red;font-weight:900">| </text>我的投递</view>
+    </van-col>
+    <van-col span="6">
+      <view class="icon">
+        <van-icon name="contact" size="35" />
+      </view>
+      <view class="font"><text style="color:red;font-weight:900">| </text>我的工号</view>
+    </van-col>
+  </van-row>
+</view>
+<!-- 简历与测评 结束-->
+
+<!-- 积分与邀请 开始-->
+<view class="user_panel">
+  <view class="title_panel">
+    积分
+  </view>
+  <van-row>
+    <van-col span="6">
+      <view class="icon">
+        <van-icon name="friends-o" size="35" />
+      </view>
+      <view class="font"><text style="color:red;font-weight:900">| </text>我的邀请</view>
+    </van-col>
+    <van-col span="6">
+      <view class="icon">
+        <van-icon name="diamond-o" size="35" />
+      </view>
+      <view class="font"><text style="color:red;font-weight:900">| </text>我的积分</view>
+    </van-col>
+
+  </van-row>
+</view>
+<!-- 积分与邀请 结束-->
+
+<!-- 消息与反馈 开始-->
+<view class="user_panel">
+  <view class="title_panel">
+    其他
+  </view>
+  <van-row>
+    <van-col span="6">
+      <view class="icon">
+        <van-icon name="chat-o" size="35" />
+      </view>
+      <view class="font"><text style="color:red;font-weight:900">| </text>我的消息</view>
+    </van-col>
+    <van-col span="6">
+      <view class="icon">
+        <van-icon name="comment-o" size="35" />
+      </view>
+      <view class="font"><text style="color:red;font-weight:900">| </text>意见反馈</view>
+    </van-col>
+    <van-col span="6">
+      <view class="icon">
+        <van-icon name="question-o" size="35" />
+      </view>
+      <view class="font"><text style="color:red;font-weight:900">| </text>帮助</view>
+    </van-col>
+  </van-row>
+</view>
+<!-- 消息与反馈 结束-->

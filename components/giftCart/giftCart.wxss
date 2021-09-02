@@ -1,0 +1,23 @@
+/* components/giftCart/giftCart.wxss */
+page{
+  background-color: rgb(245, 240, 240);
+}
+
+.text-class{
+  background-color: white;
+}
+
+.gift_cart{
+  background-color: white;
+  margin: 20rpx;
+  border-radius: 10rpx;
+  height: 200rpx;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.add_gift_button{
+  height: 200rpx;
+  vertical-align: middle;
+  display: table-cell;
+}

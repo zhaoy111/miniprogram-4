@@ -1,6 +1,6 @@
 /* pages/gift/gift.wxss */
 page{
-  background: rgb(245, 244, 244);
+  background: rgb(241, 240, 240);
 }
 
 .cart{
@@ -13,11 +13,13 @@ page{
 }
 
 .tip_panel{
+  height: 50;
   font-size: 35rpx;
-  margin: 10rpx 2%;
   color: red;
   align-content: center;
   text-align: center;
+  background: white;
+  vertical-align: middle;
 }
 
 .sort{
@@ -26,11 +28,12 @@ page{
 
 .tip{
   background: white;
-  padding: 10rpx 10rpx;
-  border-radius: 35rpx;
+  text-align: center;
+  align-content: center;
+  vertical-align: middle;
+  padding: 20rpx 0;
 }
 
-van-dropdown-menu{
-  height: 35rpx;
-  border-radius: 35rpx;
+.help{
+  margin: 20rpx;
 }

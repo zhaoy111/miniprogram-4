@@ -1,0 +1,27 @@
+/* pages/jobDetail/index.wxss */
+
+.job_detail{
+  margin: 1%;
+  padding: 20rpx;
+}
+
+.job_res{
+  background-color: white;
+}
+
+.title{
+  border-left: 10rpx solid red;
+  margin-top: 50rpx;
+  padding-left: 20rpx;
+  font-size: 40rpx;
+}
+
+.description{
+  margin-top: 20rpx;
+  padding:20rpx;
+}
+
+.job_send{
+  text-align: center;
+  margin-top: 30rpx;
+}

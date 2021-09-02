@@ -1,0 +1,45 @@
+<view class="title">
+  <van-row>
+    <van-col span="12" bindtap="setShow1">
+      <view style="{{show===true?'border-bottom: red solid 10rpx;':''}}padding-bottom:5rpx">
+        待完成</view>
+    </van-col>
+    <van-col span="12" bindtap="setShow2">
+      <view style="{{show!==true?'border-bottom: red solid 10rpx;':''}}padding-bottom:5rpx">
+        已完成</view>
+    </van-col>
+  </van-row>
+</view>
+
+<view wx:if="{{show}}">
+  <view class="content" wx:for="{{10}}" wx:key="this">
+    <van-row gutter="10">
+      <van-col span="6">
+        <van-image  fit="widthFix" width="80" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+      </van-col>
+      <van-col span="12">
+        <view>猫</view>
+        <view>积分：5 数量：×2</view>
+      </van-col>
+      <van-col span="6" style="margin-top:50px">
+        <van-button type="danger">撤销</van-button>
+      </van-col>
+    </van-row>
+  </view>
+</view>
+<view wx:else>
+  <view class="content" wx:for="{{10}}" wx:key="this">
+    <van-row gutter="10">
+      <van-col span="6">
+        <van-image  fit="widthFix" width="80" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+      </van-col>
+      <van-col span="12">
+        <view>猫</view>
+        <view>积分：5 数量：×2</view>
+      </van-col>
+      <van-col span="6" >
+        <view style="margin-top:10px;font-size:25rpx">2021-08-31</view>
+      </van-col>
+    </van-row>
+  </view>
+</view>
