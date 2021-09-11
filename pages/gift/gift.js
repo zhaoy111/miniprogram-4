@@ -1,4 +1,6 @@
-const { http } = require("../../utils/request");
+const {
+  http
+} = require("../../utils/request");
 
 // pages/gift/gift.js
 Page({
@@ -7,17 +9,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-    searchValue:"",
-    option1: [
-      { text: '全部', value: 0 },
-      { text: '礼物', value: 1 },
-      { text: '福利', value: 2 },
+    credits_data:0,
+    searchValue: "",
+    option1: [{
+        text: '全部',
+        value: '全部'
+      },
+      {
+        text: '礼物',
+        value: '礼物'
+      },
+      {
+        text: '福利',
+        value: '福利'
+      },
     ],
-    value1: 0,
-    gifts:[],
+    value1: '全部',
+    gifts: [],
     show: false,
     show2: false,
-    help:'',
+    help: '',
+    loading:false
   },
 
   getUserInfo(event) {
@@ -25,19 +37,27 @@ Page({
   },
 
   onClose() {
-    this.setData({ show: false });
+    this.setData({
+      show: false
+    });
   },
 
-  getImage(){
-    this.setData({ show2: false });
+  getImage() {
+    this.setData({
+      show2: false
+    });
   },
 
-  getShow2(){
-    this.setData({ show2: true });
+  getShow2() {
+    this.setData({
+      show2: true
+    });
   },
 
   getHelp(e) {
-    this.setData({ show: true });
+    this.setData({
+      show: true
+    });
   },
   /**
    * 生命周期函数--监听页面加载
@@ -46,13 +66,42 @@ Page({
     wx.showLoading({
       title: '页面加载中',
     })
-    http({url:'http://120.55.59.119:1880/v1?fun1=gifts&fun2=all'}).then(data =>{this.setData({gifts:data.data})});
-    http({url:'http://120.55.59.119:1880/v1?fun1=score&fun2=help'}).then(d=>{this.setData({help:d.data})});
+    this.setData({
+      help: wx.getStorageSync('data_test').help,
+      gifts: wx.getStorageSync('data_test').gifts,
+    });
   },
 
-  onChange : function(e) {
-    console.log(e);
-    
+  onChange: function (e) {
+    this.setData({
+      searchValue: e.detail
+    });
+  },
+
+  searchGifts(e) {
+    this.setData({
+      gifts: wx.getStorageSync('data_test').gifts.filter(item => {
+        return item.gift_name.indexOf(this.data.searchValue) != -1
+      })
+    })
+  },
+
+  changeSort(e) {
+    this.setData({
+      value1: e.detail
+    })
+    if (e.detail != '全部') {
+      this.setData({
+        gifts: wx.getStorageSync('data_test').gifts.filter(item => {
+          return item.gift_type.includes(this.data.value1)
+        })
+      })
+    } else {
+      this.setData({
+        gifts: wx.getStorageSync('data_test').gifts
+      })
+    }
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -69,6 +118,7 @@ Page({
     wx.hideLoading({
       success: (res) => {},
     })
+    this.setData({credits_data: wx.getStorageSync('data_test_credit').available_credits})
   },
 
   /**
@@ -96,7 +146,14 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.setData({loading:true})
+    setTimeout(() => {
+      this.data.gifts = [...this.data.gifts, ...wx.getStorageSync('data_test').gifts]
+      this.setData({
+        gifts: this.data.gifts,
+        loading:false
+      });
+    }, 1500);
   },
 
   /**

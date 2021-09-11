@@ -1,2 +1,193 @@
-<!--pages/resume/index.wxml-->
-<text>pages/resume/index.wxml</text>
+<view style="padding:20rpx;background-color:white">
+  <van-row>
+    <van-col span="6">
+      <view style="width:100%">
+        <van-uploader catch:delete="deleteHandle" accept="image" max-count="1" file-list="{{ fileList }}"
+          bind:after-read="afterRead" />
+      </view>
+    </van-col>
+    <van-col span="16">
+      <van-cell-group>
+        <van-field value="{{resumeInfo.name}}" bind:input="setName" label="用户名(必填)" placeholder="请输入用户名" left-icon="contact" border="{{ true }}" />
+        <van-field bind:input="setPhone" value="{{resumeInfo.phone}}" label="手机号(必填)" placeholder="请输入手机号" left-icon="phone-o" border="{{ true }}" />
+      </van-cell-group>
+    </van-col>
+    <van-col span="2">
+      <view>
+        <van-icon size="60rpx" name="share-o" />
+      </view>
+      <text>\n</text>
+      <view bindtap="save">
+        <van-icon size="60rpx" name="notes-o" />
+      </view>
+    </van-col>
+  </van-row>
+</view>
+<!-- 当前状态页面 开始 -->
+<view style="text-align:center;background-color:white">
+  <van-row>
+    <van-col span="{{active==0?6:3}}">
+      <view class="{{active==0?'active':'inactive'}}">基本信息</view>
+    </van-col>
+    <van-col span="{{active==1?6:3}}">
+      <view class="{{active==1?'active':'inactive'}}">教育经历</view>
+    </van-col>
+    <van-col span="{{active==2?6:3}}">
+      <view class="{{active==2?'active':'inactive'}}">学习情况</view>
+    </van-col>
+    <van-col span="{{active==3?6:3}}">
+      <view class="{{active==3?'active':'inactive'}}">实践经验</view>
+    </van-col>
+    <van-col span="{{active==4?6:3}}">
+      <view class="{{active==4?'active':'inactive'}}">技能证书</view>
+    </van-col>
+    <van-col span="{{active==5?6:3}}">
+      <view class="{{active==5?'active':'inactive'}}">自我评价</view>
+    </van-col>
+    <van-col span="{{active==6?6:3}}">
+      <view class="{{active==6?'active':'inactive'}}">拓展答题</view>
+    </van-col>
+  </van-row>
+</view>
+<!-- 当前状态页面 结束 -->
+<!-- 完善个人信息 开始 -->
+<view class="content">
+  <!-- 基本信息 开始 -->
+  <view wx:if="{{active==0}}">
+    <view>
+      <van-cell-group>
+        <van-field bind:click-input="onChangeSex" readonly="true" value="{{ resumeInfo.sex }}" label="性别"
+          border="{{ false }}" />
+        <van-field value="{{ resumeInfo.birthday }}" bind:change="setBirthday" type="number" label="年龄" placeholder="请输入年龄" />
+        <van-field value="{{ resumeInfo.nation }}" bind:change="setNation" label="民族" placeholder="请输入民族" />
+        <van-field value="{{ resumeInfo.politics }}" bind:change="setPolitics" label="政治面貌" placeholder="请输入政治面貌" />
+        <van-field value="{{ resumeInfo.nativePlace }}" bind:change="setNativePlace" label="籍贯" placeholder="请输入籍贯" />
+        <van-field value="{{ resumeInfo.marriage }}" bind:click-input="onShowMarriage" readonly="true" label="婚姻状况" />
+        <van-field value="{{ resumeInfo.weight }}" bind:change="setWeight" type="digit" label="体重(Kg)" placeholder="请输入体重" />
+        <van-field value="{{ resumeInfo.ID }}" bind:change="setID" type="idcard" label="身份证号" placeholder="请输入身份证号" />
+        <van-field value="{{ resumeInfo.email }}" bind:change="setEmail" label="邮箱" placeholder="请输入邮箱" type="email"/>
+        <van-field value="{{ resumeInfo.address }}" bind:change="setAddress" type="textarea" autosize label="家庭住址" placeholder="请输入家庭住址" />
+      </van-cell-group>
+    </view>
+  </view>
+  <!-- 基本信息 结束 -->
+  <!-- 教育经历 开始 -->
+  <view wx:if="{{active==1}}">
+    <view wx:for="{{resumeInfo.education}}" wx:key="this">
+      <van-row>
+        <van-col span="16" offset="4">
+          <van-divider contentPosition="center" customStyle="color: #1989fa; border-color: #1989fa; font-size: 18px;">
+            第{{index + 1}}阶段教育经历
+          </van-divider>
+        </van-col>
+      </van-row>
+      <van-row gutter="10">
+        <van-col span="4" offset="16">
+          <view hidden="{{resumeInfo.education.length==1?true:false}}">
+            <van-button type="warning" bind:click="delEdu" data-index="{{index}}" size="small">删除</van-button>
+          </view>
+        </van-col>
+        <van-col span="4" offset="{{resumeInfo.education.length==1?20:0}}">
+          <van-button type="primary" size="small" bind:click="addEdu" data-index="{{index}}">添加</van-button>
+        </van-col>
+      </van-row>
+      <van-cell-group>
+        <van-field value="{{ resumeInfo.education[index].school }}" bind:change="setSchool" data-index="{{index}}" label="学校" placeholder="请输入学校" />
+        <van-field value="{{ resumeInfo.education[index].attribute }}" data-index="{{index}}" bind:click-input="onAttribute"
+          readonly="true" label="属性" />
+        <van-field value="{{resumeInfo.education[index].academic }}" data-index="{{index}}" bind:click-input="onAcademic"
+          readonly="true" label="学历" />
+        <van-field value="{{ resumeInfo.education[index].major }}" bind:change="setMajor" data-index="{{index}}" label="专业" placeholder="请输入专业" />
+        <van-field value="{{ resumeInfo.education[index].course }}" bind:change="setCourse" data-index="{{index}}" type="textarea" autosize label="主修课程" placeholder="请输入主修课程" />
+      </van-cell-group>
+    </view>
+  </view>
+  <!-- 教育经历 结束 -->
+  <!-- 学习情况 开始 -->
+  <view wx:if="{{active==2}}">
+    <van-cell-group>
+      <van-field value="{{ resumeInfo.learning_status.number_of_failures }}" bind:change="setNumberOfFail" label="挂科数量" placeholder="请输入挂科数量" type="number" />
+      <van-field value="{{ resumeInfo.learning_status.course_of_failures }}" bind:change="setCourseOfFail" label="挂科科目" placeholder="请输入挂科科目" />
+      <van-field value="{{ resumeInfo.learning_status.CET4 }}" label="英语四级" bind:change="setCET4"  placeholder="请输入英语四级" type="number" />
+      <van-field value="{{ resumeInfo.learning_status.CET6 }}" label="英语六级" bind:change="setCET6" placeholder="请输入英语六级" type="number" />
+      <van-field value="{{ resumeInfo.learning_status.average_scores }}" bind:change="setAverageScores" label="平均绩点" placeholder="请输入平均绩点" type="digit" />
+      <van-field value="{{ resumeInfo.learning_status.ranking }}" bind:change="setRanking" label="个人名次" placeholder="请输入个人名次" type="number" />
+      <van-field value="{{ resumeInfo.learning_status.number_people }}" bind:change="setNumberPeople" label="专业人数" placeholder="请输入专业人数" type="number" />
+    </van-cell-group>
+  </view>
+  <!-- 学习情况 结束 -->
+  <!-- 实践经验 开始 -->
+  <view wx:if="{{active==3}}">
+    <van-cell-group>
+      <van-field value="{{ resumeInfo.practice_status.practice_school }}" bind:change="setPracticeSchool" type="textarea" autosize label="在校实践"
+        placeholder="请输入在校实践" />
+      <van-field value="{{ resumeInfo.practice_status.practice_society }}" bind:change="setPracticeSociety" type="textarea" autosize label="社会实践"
+        placeholder="请输入社会实践" />
+    </van-cell-group>
+  </view>
+  <!-- 实践经验 结束 -->
+  <!-- 技能证书 开始 -->
+  <view wx:if="{{active==4}}">
+    <van-cell-group>
+      <van-field value="{{ resumeInfo.skill_certificate.certificate }}" bind:change="setCertificate" type="textarea" autosize label="技能证书"
+        placeholder="请输入技能证书" />
+    </van-cell-group>
+  </view>
+  <!-- 技能证书 结束 -->
+  <!-- 自我评价 开始 -->
+  <view wx:if="{{active==5}}">
+    <van-cell-group>
+      <van-field value="{{ resumeInfo.self_assessment.merit }}" bind:change="setMerit" type="textarea" autosize label="个人优点"
+        placeholder="请输入个人优点" />
+        <van-field value="{{ resumeInfo.self_assessment.defect }}" bind:change="setDefect" type="textarea" autosize label="个人缺点"
+        placeholder="请输入个人缺点" />
+        <van-field value="{{ resumeInfo.self_assessment.hobbies }}" bind:change="setHobbies" type="textarea" autosize label="兴趣爱好"
+        placeholder="请输入兴趣爱好" />
+        <van-field value="{{ resumeInfo.self_assessment.speciality }}" bind:change="setSpeciality" type="textarea" autosize label="个人特长"
+        placeholder="请输入个人特长" />
+    </van-cell-group></view>
+  <!-- 自我评价 结束 -->
+  <!-- 拓展答题 开始 -->
+  <view wx:if="{{active==6}}">拓展答题</view>
+  <!-- 拓展答题 结束 -->
+</view>
+<!-- 完善个人信息 结束 -->
+<!-- 页面切换按钮 开始 -->
+<view>
+  <view style="margin:20rpx 50rpx;">
+    <van-row gutter="0">
+      <van-col span="12" style="text-align:left">
+        <van-button bind:click="lastPage" disabled="{{active==0}}" type="primary">上一步</van-button>
+      </van-col>
+      <van-col span="12" style="text-align:right">
+        <van-button bind:click="nextPage" type="primary" disabled="{{active==6}}">下一步</van-button>
+      </van-col>
+    </van-row>
+  </view>
+</view>
+<!-- 页面切换按钮 结束 -->
+<!-- 选择性别 开始 -->
+<van-popup show="{{sexShow}}" round close-icon="close" closeable position="bottom" custom-style="height: 50%"
+  bind:close="onClose">
+  <van-picker columns="{{ columns }}" default-index="{{ 0 }}" bind:change="onChange" />
+</van-popup>
+<!-- 选择性别 结束 -->
+<!-- 选择婚姻状况 开始 -->
+<van-popup show="{{marriageShow}}" round close-icon="close" closeable position="bottom" custom-style="height: 50%"
+  bind:close="onCloseMarriage">
+  <van-picker columns="{{ columnsMarriage }}" default-index="{{ 0 }}" bind:change="onChangeMarriage" />
+</van-popup>
+<!-- 选择婚姻状况 结束 -->
+<!-- 选择学校属性 开始 -->
+<van-popup show="{{attributeShow}}" round close-icon="close" closeable position="bottom" custom-style="height: 50%"
+  bind:close="onCloseAttribute">
+  <van-picker columns="{{ columnsAttribute }}" default-index="{{ 0 }}" bind:change="onChangeAttribute" />
+</van-popup>
+<!-- 选择学校属性 结束 -->
+<!-- 选择学历 开始 -->
+<van-popup show="{{academicShow}}" round close-icon="close" closeable position="bottom" custom-style="height: 50%"
+  bind:close="onCloseAcademic">
+  <van-picker columns="{{ columnsAcademic }}" default-index="{{ 0 }}" bind:change="onChangeAcademic" />
+</van-popup>
+<!-- 选择学历 结束 -->
+<van-toast id="van-toast" />

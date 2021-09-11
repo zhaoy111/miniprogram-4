@@ -21,3 +21,12 @@ page{
   vertical-align: middle;
   display: table-cell;
 }
+
+.content_text {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}

@@ -26,9 +26,11 @@
       </view>
     </van-col>
     <van-col span="11">
-      <view class="tip" style="color:black">
-        我的积分:<text style="color:red">50</text>
-      </view>
+      <navigator url="/pages/credits/index" hover-class="none">
+        <view class="tip" style="color:black">
+          我的积分:<text style="color:red">{{credits_data}}</text>
+        </view>
+      </navigator>
     </van-col>
   </van-row>
 </view>
@@ -40,7 +42,7 @@
       <van-cell-group>
         <van-field value="{{ searchValue }}" placeholder="请输入关键文字搜索" border="{{ true }}" bind:change="onChange"
           use-button-slot>
-          <van-button slot="button" size="small" type="primary">搜索</van-button>
+          <van-button slot="button" size="small" type="primary" bindtap="searchGifts">搜索</van-button>
         </van-field>
       </van-cell-group>
     </van-col>
@@ -57,7 +59,7 @@
 <!-- 礼物类别 开始 -->
 <view style="margin-top:20rpx">
   <van-dropdown-menu>
-    <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" />
+    <van-dropdown-item value="{{ value1 }}" options="{{ option1 }}" bind:change="changeSort" />
   </van-dropdown-menu>
 </view>
 <!--  礼物类别 结束 -->
@@ -66,5 +68,9 @@
   <giftCart wx:for="{{gifts}}" gift_id="{{item.gift_id}}" gift_image="{{item.gift_image}}"
     gift_name="{{item.gift_name}}" gift_desc="{{item.gift_desc}}" gift_type="{{item.gift_type}}"
     gift_credit="{{item.gift_credit}}" wx:key="this"></giftCart>
+  <view style="text-align:center">
+    <van-loading wx:if="{{loading}}" color="rgb(25, 137, 250)" size="20" type="spinner">加载中...</van-loading>
+    <!-- <text wx:if="{{newjob}}">- 无更多数据 -</text> -->
+  </view>
 </view>
 <!-- 积分兑换礼品 结束 -->

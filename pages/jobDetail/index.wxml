@@ -46,9 +46,21 @@
   </view>
   <!-- 岗位要求 结束 -->
 
-  <!-- 投递建立 开始 -->
+  <!-- 投递简历 开始 -->
   <view class="job_send">
-    <van-button type="primary" round>投递简历</van-button>
+    <van-button type="primary" disabled="{{repetition}}" round bind:click="sendJob">{{repetition ? '不可重复投递' : '投递简历'}}</van-button>
   </view>
-  <!-- 投递建立 结束 -->
+  <!-- 投递简历 结束 -->
 </view>
+
+<van-dialog
+  use-slot
+  title="投递成功"
+  show="{{ show }}"
+  bind:close="onClose"
+  bind:confirm="onClose"
+>
+  <view style="margin:20rpx">
+    你已成功投递岗位：{{job_panel.job_name}}，请关注后续进度
+  </view>
+</van-dialog>

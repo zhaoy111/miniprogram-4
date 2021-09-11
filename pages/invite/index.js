@@ -1,37 +1,18 @@
-// pages/send/index.js
+// pages/invite/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    send_job: [],
 
   },
 
-  delete(e) {
-   this.setData({
-     send_job:wx.getStorageSync("data_test").send_job.filter(item => {
-       return item.job_id!=e.currentTarget.dataset.job_id
-     })
-   })
-   const temp = wx.getStorageSync("data_test");
-   temp.send_job=this.data.send_job
-   wx.setStorageSync('data_test', temp)
-  },
-
-  sendJob(e) {
-    wx.switchTab({
-      url: '/pages/index/index',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      send_job:JSON.parse(JSON.stringify(wx.getStorageSync("data_test").send_job))
-    })
+
   },
 
   /**

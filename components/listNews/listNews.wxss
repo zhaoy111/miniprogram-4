@@ -1,0 +1,23 @@
+/* components/listNews/listNews.wxss */
+.panel{
+  background-color: white;
+  margin: 5rpx 0rpx;
+  padding: 20rpx 20rpx 10rpx 20rpx;
+}
+
+.date{
+  text-align:left;
+  font-size: 25rpx;
+  font-weight: 200;
+}
+
+.tip{
+  text-align:right;
+  font-size: 30rpx;
+  color: darkorange;
+}
+
+.text{
+  margin: 10rpx;
+  padding: 20rpx;
+}

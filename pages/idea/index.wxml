@@ -1,0 +1,15 @@
+<van-dropdown-menu>
+  <van-dropdown-item value="{{ title }}" options="{{ data.title }}" bind:change="change" />
+</van-dropdown-menu>
+<van-cell-group>
+  <van-field value="{{ data.content }}" label="内容" type="textarea" placeholder="请输入反馈内容" autosize
+    border="{{ false }}" />
+</van-cell-group>
+
+<view style="margin:20rpx">
+  <van-uploader file-list="{{ data.fileList }}" deletable="{{ true }}" />
+</view>
+
+<view style="text-align:center;margin:50rpx">
+  <van-button type="primary" size="large">提交</van-button>
+</view>

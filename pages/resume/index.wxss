@@ -1,1 +1,13 @@
 /* pages/resume/index.wxss */
+.inactive{
+  padding-top:16rpx;
+  font-size:23rpx;
+}
+
+.active{
+  font-size:45rpx;
+}
+
+.content{
+  
+}

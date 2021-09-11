@@ -1,0 +1,25 @@
+<view class="panel" bindtap="show">
+  <view class="content_text">{{content}}</view>
+  <view style="margin:20rpx 0rpx 0rpx">
+    <van-row gutter="10">
+      <van-col span='8' class="date">{{date1}}</van-col>
+      <van-col span='8' class="date">{{date2}}</van-col>
+      <van-col span='8' class="tip" offset="{{date2==''?8:0}}">{{tip}}</van-col>
+    </van-row>
+  </view>
+</view>
+
+
+<!-- 消息展示 开始 -->
+<van-dialog use-slot title="详细信息" show="{{ show }}" closeOnClickOverlay="true" show-confirm-button="true"
+  bind:confirm="hidden" confirmButtonText="确认">
+  <view class="text">{{content}}</view>
+  <view class="text">
+    <van-row gutter="10">
+      <van-col span='8' class="date">{{date1}}</van-col>
+      <van-col span='8' class="date">{{date2}}</van-col>
+      <van-col span='8' class="tip" offset="{{date2==''?8:0}}">{{tip}}</van-col>
+    </van-row>
+  </view>
+</van-dialog>
+<!-- 消息展示 结束 -->

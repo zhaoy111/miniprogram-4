@@ -1,37 +1,47 @@
-// pages/send/index.js
+// pages/idea/index.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    send_job: [],
-
+    // 模拟数据
+    data: {
+      title: [{
+        text: '关于积分',
+        value: 0
+      }, {
+        text: '关于公司',
+        value: 1
+      }, {
+        text: '关于系统',
+        value: 2
+      }, {
+        text: '其他',
+        value: 3
+      }],
+      content: '',
+      fileList: [
+        {
+          url: 'https://img.yzcdn.cn/vant/leaf.jpg',
+        },
+        {
+          url: 'https://img.yzcdn.cn/vant/tree.jpg',
+        },
+      ],
+    },
+    title: 0
   },
 
-  delete(e) {
-   this.setData({
-     send_job:wx.getStorageSync("data_test").send_job.filter(item => {
-       return item.job_id!=e.currentTarget.dataset.job_id
-     })
-   })
-   const temp = wx.getStorageSync("data_test");
-   temp.send_job=this.data.send_job
-   wx.setStorageSync('data_test', temp)
-  },
-
-  sendJob(e) {
-    wx.switchTab({
-      url: '/pages/index/index',
-    })
+  change(e){
+    console.log(e.detail);
+    
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      send_job:JSON.parse(JSON.stringify(wx.getStorageSync("data_test").send_job))
-    })
+
   },
 
   /**

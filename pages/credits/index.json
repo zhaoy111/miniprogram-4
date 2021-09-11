@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "listNews": "/components/listNews/listNews"
+  },
+  "navigationBarTitleText": "我的积分"
+}

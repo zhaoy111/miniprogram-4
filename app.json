@@ -15,10 +15,15 @@
     "van-steps": "@vant/weapp/steps/index",
     "van-swipe-cell": "@vant/weapp/swipe-cell/index",
     "van-cell": "@vant/weapp/cell/index",
-  "van-cell-group": "@vant/weapp/cell-group/index",
-  "van-dialog": "@vant/weapp/dialog/index",
-  "van-transition": "@vant/weapp/transition/index",
-  "van-loading": "@vant/weapp/loading/index"
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-transition": "@vant/weapp/transition/index",
+    "van-loading": "@vant/weapp/loading/index",
+    "van-uploader": "@vant/weapp/uploader/index",
+    "van-picker": "@vant/weapp/picker/index",
+    "van-popup": "@vant/weapp/popup/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-toast": "@vant/weapp/toast/index"
   },
   "pages": [
     "pages/index/index",
@@ -30,7 +35,11 @@
     "pages/company/index",
     "pages/send/index",
     "pages/shopHistory/index",
-    "pages/resume/index"
+    "pages/resume/index",
+    "pages/news/index",
+    "pages/credits/index",
+    "pages/invite/index",
+    "pages/idea/index"
   ],
   "tabBar": {
     "custom": true,

@@ -13,13 +13,13 @@
             <van-icon name="location-o" /> {{item.job_address}}</van-col>
           <van-col span="24">
             <van-steps steps="{{ item.steps }}" active="{{ item.active }}"
-              active-color="{{item.steps.length === (item.active + 1) ? 'green' : 'red'}}" />
+              active-color="{{item.job_status!=0 ? 'green' : 'red'}}" />
           </van-col>
         </van-row>
       </view>
     </navigator>
-    <view slot="right" class="delete">
-      <view style="padding-top:70%">撤销</view>
+    <view slot="right" class="delete content_vertical">
+      <view bindtap="delete" data-job_id="{{item.job_id}}">撤销</view>
     </view>
   </van-swipe-cell>
 </view>

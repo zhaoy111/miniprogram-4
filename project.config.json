@@ -127,6 +127,41 @@
           "id": -1,
           "name": "购物车记录",
           "pathName": "pages/shopHistory/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "我的简历",
+          "pathName": "pages/resume/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "我的消息",
+          "pathName": "pages/news/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "我的积分",
+          "pathName": "pages/credits/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "消息列表",
+          "pathName": "components/listNews/listNews",
+          "query": "",
+          "scene": null
+        },
+        {
+          "id": -1,
+          "name": "意见反馈",
+          "pathName": "pages/idea/index",
           "scene": null
         }
       ]

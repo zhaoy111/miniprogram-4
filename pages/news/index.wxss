@@ -1,0 +1,38 @@
+/* pages/news/index.wxss */
+.title {
+  text-align: center;
+  font-size: large;
+  background-color: #fff;
+}
+
+.active {
+  border-bottom: solid red 5rpx;
+}
+
+.content_news {
+  background-color: #fff;
+  margin: 20rpx 0rpx;
+}
+
+.content_text {
+  -webkit-line-clamp: 2;
+  padding: 20rpx 20rpx 0 20rpx;
+}
+
+.text_show {
+  margin: 20rpx;
+  padding: 20rpx;
+}
+
+.text_del {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 100%;
+  background-color: red;
+}
+
+page {
+  background: rgb(241, 240, 240);
+}

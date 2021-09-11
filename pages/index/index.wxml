@@ -5,11 +5,12 @@
     </swiper-item>
   </swiper>
 </navigator>
-<van-row gutter="10" class="search_row">
+<view  class="search_row">
+<van-row gutter="10">
   <van-col span="18" offset="2">
     <van-cell-group>
-      <van-field value="{{ value }}" border="true" placeholder="请输入关键文字搜索" bindchange="onChange" use-button-slot>
-        <van-button slot="button" size="small" type="primary">
+      <van-field value="{{ value }}" border="true" bind:input="onInput" placeholder="请输入关键文字搜索" use-button-slot>
+        <van-button slot="button" size="small" type="primary" bind:click="onSearch">
           查询
         </van-button>
       </van-field>
@@ -17,17 +18,18 @@
   </van-col>
   <van-col span="2">
     <navigator url="/pages/send/index" hover-class="none">
-      <van-icon name="todo-list-o" info="2" size="30" style="margin-top:10px" />
+      <van-icon name="todo-list-o" info="{{send_num==0?'':send_num}}" size="30" style="margin-top:10px" />
     </navigator>
   </van-col>
 </van-row>
+</view>
+
 <view class="job_carts">
-  
   <jobCart wx:for="{{jobs}}" job_id="{{item.job_id}}" job_name="{{item.job_name}}" job_type="{{item.job_type}}"
     job_date="{{item.job_date}}" job_address="{{item.job_address}}" job_salary="{{item.job_salary}}" wx:key="id">
   </jobCart>
   <view style="text-align:center">
-    <van-loading wx:if="{{loading}}" color="rgb(25, 137, 250)" type="spinner"/>
+    <van-loading wx:if="{{loading}}" color="rgb(25, 137, 250)" size="20" type="spinner">加载中...</van-loading>
     <text wx:if="{{newjob}}">- 无更多数据 -</text>
   </view>
 </view>

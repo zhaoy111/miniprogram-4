@@ -39,10 +39,12 @@
       <view class="font"><text style="color:red;font-weight:900">| </text>我的测评</view>
     </van-col>
     <van-col span="6">
-      <view class="icon">
-        <van-icon name="underway-o" size="35" />
-      </view>
-      <view class="font"><text style="color:red;font-weight:900">| </text>我的投递</view>
+      <navigator url="/pages/send/index" hover-class="none">
+        <view class="icon">
+          <van-icon name="underway-o" size="35" />
+        </view>
+        <view class="font"><text style="color:red;font-weight:900">| </text>我的投递</view>
+      </navigator>
     </van-col>
     <van-col span="6">
       <view class="icon">
@@ -67,10 +69,12 @@
       <view class="font"><text style="color:red;font-weight:900">| </text>我的邀请</view>
     </van-col>
     <van-col span="6">
+      <navigator url="/pages/credits/index" hover-class="none">
       <view class="icon">
         <van-icon name="diamond-o" size="35" />
       </view>
       <view class="font"><text style="color:red;font-weight:900">| </text>我的积分</view>
+    </navigator>
     </van-col>
 
   </van-row>
@@ -84,23 +88,30 @@
   </view>
   <van-row>
     <van-col span="6">
-      <view class="icon">
-        <van-icon name="chat-o" size="35" />
-      </view>
-      <view class="font"><text style="color:red;font-weight:900">| </text>我的消息</view>
+      <navigator url="/pages/news/index" hover-class="none">
+        <view class="icon">
+          <van-icon name="chat-o" size="35" />
+        </view>
+        <view class="font"><text style="color:red;font-weight:900">| </text>我的消息</view>
+      </navigator>
     </van-col>
     <van-col span="6">
+      <!-- <navigator url="/pages/idea/index" hover-class="none"> -->
+        <button open-type='feedback' class="font item">
       <view class="icon">
         <van-icon name="comment-o" size="35" />
       </view>
-      <view class="font"><text style="color:red;font-weight:900">| </text>意见反馈</view>
+      <view><text style="color:red;font-weight:900">| </text>意见反馈</view>
+    <!-- </navigator> -->
+  </button>
     </van-col>
     <van-col span="6">
+      <button open-type='contact' class="font item">
       <view class="icon">
         <van-icon name="question-o" size="35" />
       </view>
-      <view class="font"><text style="color:red;font-weight:900">| </text>帮助</view>
+      <view ><text style="color:red;font-weight:900">| </text>在线客服</view>
+    </button>
     </van-col>
   </van-row>
 </view>
-<!-- 消息与反馈 结束-->
