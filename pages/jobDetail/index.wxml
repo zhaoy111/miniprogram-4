@@ -7,7 +7,7 @@
           {{job_panel.job_name}}
         </van-col>
         <van-col offset="2">
-          <van-icon name="balance-pay" color="#ee0a24" /> {{job_panel.job_salary}}
+          <van-icon name="balance-pay" color="#ee0a24" /> {{(job_panel.job_salary_lowest && job_panel.job_salary_highest) ? job_panel.job_salary_lowest + '-' + job_panel.job_salary_highest:job_panel.job_salary_lowest}}
         </van-col>
       </van-row>
     </view>
@@ -30,7 +30,7 @@
       岗位职责
     </view>
     <view class="description">
-      <rich-text nodes='{{job_panel.job_res}}'></rich-text>
+      <rich-text nodes='{{job_panel.job_duty}}'></rich-text>
     </view>
   </view>
   <!-- 岗位职责 结束 -->
@@ -48,7 +48,7 @@
 
   <!-- 投递简历 开始 -->
   <view class="job_send">
-    <van-button type="primary" disabled="{{repetition}}" round bind:click="sendJob">{{repetition ? '不可重复投递' : '投递简历'}}</van-button>
+    <van-button type="primary" disabled="{{repetition}}" round bind:click="send">{{repetition ? '不可重复投递' : '投递简历'}}</van-button>
   </view>
   <!-- 投递简历 结束 -->
 </view>

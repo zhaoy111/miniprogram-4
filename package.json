@@ -4,12 +4,23 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
-    "@vant/weapp": "^1.8.2"
+    "@vant/weapp": "^1.8.2",
+    "miniprogram-sm-crypto": "^0.3.6",
+    "wxmp-qrcode": "^2.0.3"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaoy111/miniprogram-4.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/zhaoy111/miniprogram-4/issues"
+  },
+  "homepage": "https://github.com/zhaoy111/miniprogram-4#readme"
 }

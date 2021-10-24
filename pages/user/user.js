@@ -17,12 +17,16 @@ Page({
     wx.showLoading({
       title: '页面加载中'
     });
-    wx.getStorage({
-      key: 'userInfo',
-      success:res=>{
-        this.setData({userInfo:res.data,hasUserInfo:true})
-      }
-    })
+    this.setData({userInfo:wx.getStorageSync('userInfo')})
+    if(!this.data.userInfo.avatarUrl){
+      this.setData({
+        hasUserInfo:false
+      })
+    }else{
+      this.setData({
+        hasUserInfo:true
+      })
+    }
     if (wx.getUserProfile) {
       this.setData({
         canIUseGetUserProfile: true
@@ -43,8 +47,11 @@ Page({
     wx.getUserProfile({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
+        this.data.userInfo.avatarUrl = res.userInfo.avatarUrl;
+        console.log(res.userInfo.avatarUrl);
+        this.data.userInfo.nickName = res.userInfo.nickName;
         this.setData({
-          userInfo: res.userInfo,
+          userInfo: this.data.userInfo,
           hasUserInfo: true
         });
         wx.setStorage({

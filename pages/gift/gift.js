@@ -9,7 +9,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    credits_data:0,
+    image: "",
+    page: 1,
+    newjob: false,
+    count: 0,
+    score: 0,
     searchValue: "",
     option1: [{
         text: '全部',
@@ -29,7 +33,7 @@ Page({
     show: false,
     show2: false,
     help: '',
-    loading:false
+    loading: false
   },
 
   getUserInfo(event) {
@@ -46,6 +50,7 @@ Page({
     this.setData({
       show2: false
     });
+
   },
 
   getShow2() {
@@ -66,41 +71,149 @@ Page({
     wx.showLoading({
       title: '页面加载中',
     })
+    this.data.option1 = [{
+      text: "全部",
+      value: "-1"
+    }]
     this.setData({
+      option1: this.data.option1,
+      ip: getApp().globalData.ip,
+      value1: "-1"
+    })
+    this.setData({
+      image: this.data.ip + "/api/inviter/img?" + this.data.image + "openId=" + wx.getStorageSync("openId") + "&width=200",
       help: wx.getStorageSync('data_test').help,
-      gifts: wx.getStorageSync('data_test').gifts,
+    });
+    
+    //获取礼物分类
+    http({
+      url: this.data.ip + "/api/giftTypesAll",
+      method: "GET"
+    }).then((res1) => {
+      if (res1.data.code == 0) {
+        res1.data.data.forEach(d => {
+          this.data.option1.push({
+            text: d.description,
+            value: d.id
+          })
+        });
+        this.setData({
+          option1: this.data.option1,
+        })
+      }
+    });
+    //获取礼物分类结束
+
+    this.getGift()
+
+
+  },
+
+  getGift: function () {
+    if (this.data.newjob) {
+      return;
+    }
+    //获取礼物
+    this.setData({
+      loading: true,
+      page: this.data.page + 1
+    })
+    http({
+      url: this.data.ip + "/api/gifts",
+      data: {
+        page: this.data.page - 1,
+        limit: 10,
+        status: true,
+        type: this.data.value1,
+        msg: this.data.searchValue
+      },
+      method: "GET"
+    }).then((res1) => {
+      if (res1.data.code == 0) {
+        if (res1.data.data.length < 10) {
+          this.setData({
+            newjob: true,
+            loading: false,
+            gifts: [...this.data.gifts, ...res1.data.data]
+          })
+        } else {
+          this.setData({
+            newjob: false,
+            loading: false,
+            gifts: [...this.data.gifts, ...res1.data.data]
+          })
+        }
+      }
+    });
+    //获取礼物结束
+  },
+
+  getCart: function (params) {
+
+    http({
+      url: this.data.ip + "/api/user/carts",
+      data: {
+        openId: wx.getStorageSync('openId'),
+        page: 1,
+        limit: 10,
+        status: 0,
+        msg: '',
+        self_pick: false
+      },
+      method: "GET",
+      header: {
+        'content-type': 'application/x-www-form-urlencoded',
+        // 'Content-Type': 'application/json'
+      },
+    }).then((res1) => {
+      if (res1.data.code == 0) {
+        this.setData({
+          count: res1.data.count
+        })
+      }
     });
   },
 
   onChange: function (e) {
     this.setData({
-      searchValue: e.detail
+      searchValue: e.detail,
+      page: 1
     });
   },
 
   searchGifts(e) {
     this.setData({
-      gifts: wx.getStorageSync('data_test').gifts.filter(item => {
-        return item.gift_name.indexOf(this.data.searchValue) != -1
-      })
+      newjob: false,
+      gifts: []
     })
+    this.getGift()
   },
+  getScore: function (params) {
+    //获取积分
+    http({
+      url: this.data.ip + "/api/user/info",
+      method: "GET",
+      data:{
+        openId:wx.getStorageSync('openId')
+      }
+    }).then((res1) => {
+      if (res1.data.code == 0) {
+        this.setData({
+          score: res1.data.data.score,
+        })
+      }
+    });
+    //获取积分结束   
+  },
+
+
+
 
   changeSort(e) {
     this.setData({
-      value1: e.detail
+      value1: e.detail,
+      page: 1
     })
-    if (e.detail != '全部') {
-      this.setData({
-        gifts: wx.getStorageSync('data_test').gifts.filter(item => {
-          return item.gift_type.includes(this.data.value1)
-        })
-      })
-    } else {
-      this.setData({
-        gifts: wx.getStorageSync('data_test').gifts
-      })
-    }
 
   },
   /**
@@ -118,7 +231,11 @@ Page({
     wx.hideLoading({
       success: (res) => {},
     })
-    this.setData({credits_data: wx.getStorageSync('data_test_credit').available_credits})
+    this.setData({
+      credits_data: wx.getStorageSync('data_test_credit').available_credits
+    });
+    this.getCart();
+    this.getScore();
   },
 
   /**
@@ -146,14 +263,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.setData({loading:true})
-    setTimeout(() => {
-      this.data.gifts = [...this.data.gifts, ...wx.getStorageSync('data_test').gifts]
-      this.setData({
-        gifts: this.data.gifts,
-        loading:false
-      });
-    }, 1500);
+    this.getGift()
   },
 
   /**

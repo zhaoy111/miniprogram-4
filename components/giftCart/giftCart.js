@@ -5,8 +5,8 @@ Component({
    */
   properties: {
     gift_id:{
-      value:1,
-      type: Number
+      value:"0",
+      type: String
     },
     gift_image:{
       value:'https://img.yzcdn.cn/vant/cat.jpeg',
@@ -21,8 +21,8 @@ Component({
       type:String
     },
     gift_type:{
-      value:['礼物','福利'],
-      type:Array
+      value:"未知",
+      type:String
     },
     gift_credit:{
       value:5,

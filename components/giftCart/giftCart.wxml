@@ -1,44 +1,40 @@
-<navigator url="{{gift_id}}" hover-class="none">
-  <view class="gift_cart">
-    <van-row gutter="10">
-      <van-col span="6">
+<view class="gift_cart">
+
+  <van-row gutter="10">
+
+    <van-col span="6">
+      <navigator url="/pages/giftDetail/index?gift_id={{gift_id}}" hover-class="none">
         <view class="add_gift_button" style="padding-left:15rpx">
           <van-image fit="widthFix" width="80" src="{{gift_image}}"></van-image>
         </view>
-      </van-col>
-      <van-col span="12">
+      </navigator>
+    </van-col>
+
+
+    <van-col span="18">
+      <navigator url="/pages/giftDetail/index?gift_id={{gift_id}}" hover-class="none">
         <view style="text-align:left;vertical-align: middle;margin-top:20rpx;margin-left:20rpx;">
           <view>{{gift_name}}</view>
-          <view style="height:55rpx;width:350rpx;" class="content_text">
+          <view style="height:55rpx;width:98%;" class="content_text">
             <text style="font-size:25rpx;-webkit-line-clamp:1">{{gift_desc}}</text>
           </view>
           <view>
             <van-row>
-              <van-col span="12">
+              <van-col span="8">
                 <view style="color:red;padding:5rpx;">
                   <van-icon name="diamond-o" /> {{gift_credit}} <text style="font-size:small">积分</text>
                 </view>
               </van-col>
-              <van-col span="12">
+              <van-col span="16">
                 <view>
-                  <van-tag type="primary" size="medium" wx:for="{{gift_type}}" wx:key="this" style="margin-left:10rpx">
-                    {{item}}</van-tag>
+                  <van-tag type="primary" style="margin-left:10rpx">
+                    {{gift_type}}</van-tag>
                 </view>
               </van-col>
             </van-row>
           </view>
         </view>
-
-      </van-col>
-      <van-col span="6">
-        <view class="add_gift_button">
-          <view>
-            <van-button size="small" round="true" color="red">兑换</van-button>
-          </view>
-
-        </view>
-      </van-col>
-
-    </van-row>
-  </view>
-</navigator>
+      </navigator>
+    </van-col>
+  </van-row>
+</view>

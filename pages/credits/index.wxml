@@ -12,7 +12,7 @@
             <view class="text_vertical">
               <view>
                 <view>
-                  <view style="font-size:50rpx;font-weight:600">{{data_test_credit.available_credits}}</view>
+                  <view style="font-size:50rpx;font-weight:600">{{score}}</view>
                 </view>
                 <view>
                   <view>可用积分</view>
@@ -29,7 +29,7 @@
           <van-icon name="warning-o" size="40" />
         </van-col>
         <van-col span="16">
-          <view style="font-size:40rpx;font-weight:600">{{data_test_credit.lock_credits}}</view>
+          <view style="font-size:40rpx;font-weight:600">{{lockScore}}</view>
           <view>锁定积分</view>
         </van-col>
       </van-row>
@@ -38,7 +38,7 @@
           <van-icon name="points" size="40" />
         </van-col>
         <van-col span="16">
-          <view style="font-size:40rpx;font-weight:600">{{data_test_credit.lock_credits + data_test_credit.available_credits}}</view>
+          <view style="font-size:40rpx;font-weight:600">{{lockScore + score}}</view>
           <view>总积分</view>
         </van-col>
       </van-row>
@@ -46,19 +46,29 @@
   </van-row>
 </view>
 
-<view style="background:white">
+<!-- <view style="background:white">
   <van-row>
-    <van-col span="6"  bindtap="changePage" data-active="0"><view class="{{active==0?'active':'inactive'}}">收入</view> </van-col>
-    <van-col span="6" bindtap="changePage" data-active="1"><view class="{{active==1?'active':'inactive'}}">支出</view> </van-col>
-    <van-col span="6" bindtap="changePage" data-active="2"><view class="{{active==2?'active':'inactive'}}">锁定</view> </van-col>
+    <van-col span="8"  bindtap="changePage" data-active="0"><view class="{{status=='0'?'active':'inactive'}}">收入</view> </van-col>
+    <van-col span="8" bindtap="changePage" data-active="1"><view class="{{status=='1'?'active':'inactive'}}">支出</view> </van-col>
+    <van-col span="8" bindtap="changePage" data-active="2"><view class="{{status=='2'?'active':'inactive'}}">锁定</view> </van-col>
     <van-col span="6" bindtap="changePage" data-active="3"><view class="{{active==3?'active':'inactive'}}">快到期</view> </van-col>
   </van-row>
-</view>
+</view> -->
 
 <view>
+  
+  <view>
+    <van-empty image="error" description="暂时没有数据" wx:if="{{log.length==0}}" />
+  </view>
+  
   <view wx:if="{{active==0}}">
     <view wx:for="{{data_test_credit.income_log}}" wx:key="this">
-      <listNews content="{{item.content}}" date1="{{item.date1}}" tip="{{item.tip}}"></listNews>
+      <listNews content="{{item.msg}}" date1="{{item.date}}" tip=""></listNews>
+    </view>
+  </view>
+  <view>
+    <view wx:for="{{log}}" wx:key="this">
+      <listNews content="{{item.msg}}" date1="{{item.date}}" tip="{{item.tip}}"></listNews>
     </view>
   </view>
 

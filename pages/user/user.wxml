@@ -6,7 +6,7 @@
     <van-col span="16">
       <view class="user_name">{{userInfo.nickName}}</view>
       <view></view>
-      <view class="user_phone">手机号：187 3659 6546</view>
+      <view class="user_phone"></view>
     </van-col>
   </van-row>
   <van-row wx:else>

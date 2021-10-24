@@ -26,7 +26,7 @@
 
 <view class="job_carts">
   <jobCart wx:for="{{jobs}}" job_id="{{item.job_id}}" job_name="{{item.job_name}}" job_type="{{item.job_type}}"
-    job_date="{{item.job_date}}" job_address="{{item.job_address}}" job_salary="{{item.job_salary}}" wx:key="id">
+    job_date="{{item.job_date}}" job_address="{{item.job_address}}" job_salary="{{(item.job_salary_lowest && item.job_salary_highest) ? item.job_salary_lowest + '-' + item.job_salary_highest:item.job_salary_lowest}}" wx:key="id">
   </jobCart>
   <view style="text-align:center">
     <van-loading wx:if="{{loading}}" color="rgb(25, 137, 250)" size="20" type="spinner">加载中...</van-loading>

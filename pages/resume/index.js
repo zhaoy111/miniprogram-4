@@ -1,14 +1,16 @@
+import {
+  http
+} from "../../utils/request";
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    fileList: [{
-      url: 'https://img.yzcdn.cn/vant/leaf.jpg',
-      name: '图片1',
-      deletable: true,
-    }, ],
+    fileList: [],
+    resumeList: [],
+    fileLink: getApp().globalData.ip + '/api/file?image=false&openId=' + wx.getStorageSync('openId'),
     active: 0,
     columns: ['男', '女'],
     columnsMarriage: ['未婚', '已婚'],
@@ -79,26 +81,38 @@ Page({
 
   index: 0,
 
-  save(e) {
-    this.setData({resumeInfo:this.data.resumeInfo})
-    if (this.check(0) && this.check(1) && this.check(2) && this.check(5) && this.data.resumeInfo.name!='' && this.data.resumeInfo.phone!='') {
-      const temp = wx.getStorageSync('data_test_resume');
-      temp.resumeInfo = this.data.resumeInfo;
-      temp.resumeInfo.success = true;
-      wx.setStorageSync('data_test_resume', JSON.parse(JSON.stringify(temp)))
-      this.setData({
-        active: 0
+  async save(e) {
+
+    this.setData({
+      resumeInfo: this.data.resumeInfo
+    })
+
+
+    if (this.check(0) && this.check(1) && this.check(2) && this.check(5) && this.data.resumeInfo.name != '' && this.data.resumeInfo.phone != '') {
+      let res = http({
+        method: "PUT",
+        url: "http://120.55.59.119/api/user",
+        data: {
+          openId: wx.getStorageSync('openId'),
+          username: this.data.resumeInfo.name,
+          phoneNumber: this.data.resumeInfo.phone,
+          msg: JSON.stringify(this.data.resumeInfo)
+        },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          // 'Content-Type': 'application/json'
+        },
       })
       wx.showToast({
         title: '保存成功',
       })
-    }else{
+    } else {
       wx.showToast({
         title: '请完善信息',
-        icon:'none'
+        icon: 'none'
       })
     }
-    
+
   },
 
   deleteHandle(e) {
@@ -113,7 +127,7 @@ Page({
       value,
       index
     } = event.detail;
-    this.data.resumeInfo.sex=value;
+    this.data.resumeInfo.sex = value;
     this.setData({
       resumeInfo: this.data.resumeInfo
     })
@@ -157,13 +171,13 @@ Page({
     })
   },
 
-  onChangeMarriage(e){
+  onChangeMarriage(e) {
     const {
       picker,
       value,
       index
     } = e.detail;
-    this.data.resumeInfo.marriage=value;
+    this.data.resumeInfo.marriage = value;
     this.setData({
       resumeInfo: this.data.resumeInfo
     })
@@ -212,32 +226,6 @@ Page({
     })
   },
 
-  lastPage(e) {
-    this.setData({
-      resumeInfo:this.data.resumeInfo
-    })
-    this.setData({
-      active: this.data.active - 1
-    })
-  },
-
-  nextPage(e) {
-    this.setData({
-      resumeInfo:this.data.resumeInfo
-    })
-    if (this.check(this.data.active)) {
-      this.setData({
-        active: this.data.active + 1
-      });
-    } else {
-      wx.showToast({
-        title: '请填写必填项',
-        icon: 'none'
-      })
-    }
-
-  },
-
   check(index) {
     if (index == 0) {
       return !(this.data.resumeInfo.birthday == '' || this.data.resumeInfo.nation == '' || this.data.resumeInfo.politics == '' || this.data.resumeInfo.nativePlace == '' || this.data.resumeInfo.weight == '' || this.data.resumeInfo.ID == '' || this.data.resumeInfo.email == '' || this.data.resumeInfo.address == '');
@@ -263,7 +251,7 @@ Page({
       } else {
         return true
       }
-    }else{
+    } else {
       return true
     }
   },
@@ -273,51 +261,90 @@ Page({
       file
     } = event.detail;
     // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
+    let that = this;
     wx.uploadFile({
-      url: 'https://example.weixin.qq.com/upload', // 仅为示例，非真实的接口地址
+      url: this.data.server + '/api/file?image=true&openId=' + wx.getStorageSync('openId'), // 仅为示例，非真实的接口地址
       filePath: file.url,
       name: 'file',
-      formData: {
-        user: 'test'
-      },
+      // formData: {
+      //   user: 'test'
+      // },
       success(res) {
         // 上传完成需要更新 fileList
-        const {
-          fileList = []
-        } = this.data;
+        let fileList = []
         fileList.push({
-          ...file,
-          url: res.data
+          url: that.data.server + '/api/file?image=true&openId=' + wx.getStorageSync('openId'),
+          isImage: true,
+          deletable: true,
         });
-        this.setData({
-          fileList
+        that.setData({
+          fileList: fileList
         });
       },
+    });
+  },
+
+  afterReadFile(event){
+    // 当设置 mutiple 为 true 时, file 为数组格式，否则为对象格式
+    let that = this;
+    wx.uploadFile({
+      url: this.data.server + '/api/file?image=false&fileName=' + event.detail.file.name + '&openId=' + wx.getStorageSync('openId'), // 仅为示例，非真实的接口地址
+      filePath: event.detail.file.url,
+      name: 'file',
+      // formData: {
+      //   user: 'test'
+      // },
+      success(res) {
+        console.log(res.data);
+        that.getResumes()
+      },
+      fail(res){
+        console.log(res);
+      }
     });
   },
 
   delEdu(e) {
     this.data.resumeInfo.education.splice(e.currentTarget.dataset.index, 1);
     this.setData({
-      resumeInfo:this.data.resumeInfo
+      resumeInfo: this.data.resumeInfo
     })
   },
 
   addEdu(e) {
     this.data.resumeInfo.education.splice(e.currentTarget.dataset.index + 1, 0, JSON.parse(JSON.stringify(this.education)));
     this.setData({
-      resumeInfo:this.data.resumeInfo
+      resumeInfo: this.data.resumeInfo
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const temp = wx.getStorageSync('data_test_resume');
-    
-    if (temp.resumeInfo && temp.resumeInfo.success) {
+    this.setData({
+      server: getApp().globalData.ip
+    })
+    this.getResumes()
+    let temp = wx.getStorageSync('userInfo');
+    http({
+      url: this.data.server + '/api/file?image=true&openId=' + wx.getStorageSync('openId'),
+      method: "GET"
+    }).then((d) => {
+      if (d.data) {
+        let fileList = []
+        fileList.push({
+          url: this.data.server + '/api/file?image=true&openId=' + wx.getStorageSync('openId'),
+          isImage: true,
+          deletable: true,
+        });
+        this.setData({
+          fileList: fileList
+        })
+      }
+    })
+    if (temp.success) {
       this.setData({
-        resumeInfo: temp.resumeInfo
+        resumeInfo: temp,
       })
     } else {
       this.data.resumeInfo.education = [JSON.parse(JSON.stringify(this.education))];
@@ -331,6 +358,49 @@ Page({
     }
   },
 
+  deleteFile(e){
+    http({
+      url: this.data.server + '/api/user/resume?openId=' + wx.getStorageSync('openId') + "&id=" + e.currentTarget.dataset.id,
+      method: "DELETE"
+    }).then(d => {
+      this.getResumes()
+    })
+  },
+
+  downloadFile(e) {
+    let that = this
+    var file = e.currentTarget.dataset.path;
+    var fileType = file.split(".").pop();
+    wx.downloadFile({
+      url: that.data.fileLink + "&id=" + e.currentTarget.dataset.id,
+      // filePath: wx.env.USER_DATA_PATH + e.currentTarget.dataset.path,
+      success: function (res) {
+        // var filePath = res.filePath
+        wx.openDocument({
+          filePath: res.tempFilePath,
+          fileType: fileType,
+          success: function (res) {
+            console.log(1);
+          },
+          fail(r) {
+            console.log(r);
+          }
+        })
+      }
+    })
+  },
+
+  getResumes() {
+    http({
+      url: this.data.server + '/api/user/resume?openId=' + wx.getStorageSync('openId'),
+      method: "GET"
+    }).then(d => {
+      this.setData({
+        resumeList: d.data.data
+      })
+    })
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -342,7 +412,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
@@ -380,111 +450,111 @@ Page({
 
   },
 
-  setName(e){
+  setName(e) {
     this.data.resumeInfo.name = e.detail;
   },
 
-  setPhone(e){
+  setPhone(e) {
     this.data.resumeInfo.phone = e.detail;
   },
 
-  setBirthday(e){
+  setBirthday(e) {
     this.data.resumeInfo.birthday = e.detail;
   },
 
-  setNation(e){
+  setNation(e) {
     this.data.resumeInfo.nation = e.detail;
   },
 
-  setPolitics(e){
+  setPolitics(e) {
     this.data.resumeInfo.politics = e.detail;
   },
 
-  setNativePlace(e){
+  setNativePlace(e) {
     this.data.resumeInfo.nativePlace = e.detail;
   },
 
-  setWeight(e){
+  setWeight(e) {
     this.data.resumeInfo.weight = e.detail;
   },
 
-  setID(e){
+  setID(e) {
     this.data.resumeInfo.ID = e.detail;
   },
 
-  setEmail(e){
+  setEmail(e) {
     this.data.resumeInfo.email = e.detail;
   },
 
-  setAddress(e){
+  setAddress(e) {
     this.data.resumeInfo.address = e.detail;
   },
 
-  setSchool(e){
+  setSchool(e) {
     this.data.resumeInfo.education[e.currentTarget.dataset.index].school = e.detail;
   },
 
-  setMajor(e){
+  setMajor(e) {
     this.data.resumeInfo.education[e.currentTarget.dataset.index].major = e.detail;
   },
 
-  setCourse(e){
+  setCourse(e) {
     this.data.resumeInfo.education[e.currentTarget.dataset.index].course = e.detail;
   },
-  
-  setNumberOfFail(e){
+
+  setNumberOfFail(e) {
     this.data.resumeInfo.learning_status.number_of_failures = e.detail;
   },
-  
-  setCourseOfFail(e){
+
+  setCourseOfFail(e) {
     this.data.resumeInfo.learning_status.course_of_failures = e.detail;
   },
-  
-  setCET4(e){
+
+  setCET4(e) {
     this.data.resumeInfo.learning_status.CET4 = e.detail;
   },
-  
-  setCET6(e){
+
+  setCET6(e) {
     this.data.resumeInfo.learning_status.CET6 = e.detail;
   },
-  
-  setAverageScores(e){
+
+  setAverageScores(e) {
     this.data.resumeInfo.learning_status.average_scores = e.detail;
   },
-  
-  setRanking(e){
+
+  setRanking(e) {
     this.data.resumeInfo.learning_status.ranking = e.detail;
   },
 
-  setNumberPeople(e){
+  setNumberPeople(e) {
     this.data.resumeInfo.learning_status.number_people = e.detail;
   },
 
-  setPracticeSchool(e){
+  setPracticeSchool(e) {
     this.data.resumeInfo.practice_status.practice_school = e.detail;
   },
 
-  setPracticeSociety(e){
+  setPracticeSociety(e) {
     this.data.resumeInfo.practice_status.practice_society = e.detail;
   },
 
-  setCertificate(e){
+  setCertificate(e) {
     this.data.resumeInfo.skill_certificate.certificate = e.detail;
   },
 
-  setMerit(e){
+  setMerit(e) {
     this.data.resumeInfo.self_assessment.merit = e.detail
   },
 
-  setDefect(e){
+  setDefect(e) {
     this.data.resumeInfo.self_assessment.defect = e.detail
   },
 
-  setHobbies(e){
+  setHobbies(e) {
     this.data.resumeInfo.self_assessment.hobbies = e.detail
   },
 
-  setSpeciality(e){
+  setSpeciality(e) {
     this.data.resumeInfo.self_assessment.speciality = e.detail
   }
 

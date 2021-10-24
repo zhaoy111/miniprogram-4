@@ -1,0 +1,27 @@
+/* pages/giftDetail/index.wxss */
+
+
+.desc{
+  margin: 20rpx;
+  padding: 10rpx;
+}
+
+.credits2{
+  margin: 20rpx;
+  text-align: right;
+  font-style: italic;
+  font-weight: 300;
+  color: red;
+  display: inline;
+}
+.credits1{
+  margin: 20rpx;
+  font-style: italic;
+  font-weight: 300;
+  display: inline;
+}
+
+.tip {
+  background: white;
+  padding: 20rpx 10rpx;
+}

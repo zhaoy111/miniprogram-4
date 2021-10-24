@@ -2,7 +2,7 @@
 .job_carts{
   background: rgb(241, 240, 240);
   padding: 5rpx 0;
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 }
 
 page{

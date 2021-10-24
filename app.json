@@ -23,7 +23,9 @@
     "van-picker": "@vant/weapp/picker/index",
     "van-popup": "@vant/weapp/popup/index",
     "van-divider": "@vant/weapp/divider/index",
-    "van-toast": "@vant/weapp/toast/index"
+    "van-toast": "@vant/weapp/toast/index",
+    "van-stepper": "@vant/weapp/stepper/index",
+    "van-empty": "@vant/weapp/empty/index"
   },
   "pages": [
     "pages/index/index",
@@ -39,7 +41,8 @@
     "pages/news/index",
     "pages/credits/index",
     "pages/invite/index",
-    "pages/idea/index"
+    "pages/idea/index",
+    "pages/giftDetail/index"
   ],
   "tabBar": {
     "custom": true,

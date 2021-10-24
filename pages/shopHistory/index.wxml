@@ -1,45 +1,120 @@
 <view class="title">
   <van-row>
-    <van-col span="12" bindtap="setShow1">
-      <view style="{{show===true?'border-bottom: red solid 10rpx;':''}}padding-bottom:5rpx">
+    <van-col span="8" bindtap="setShow1">
+      <view style="{{show==0?'border-bottom: red solid 5rpx;':''}}padding-bottom:5rpx">
         待完成</view>
     </van-col>
-    <van-col span="12" bindtap="setShow2">
-      <view style="{{show!==true?'border-bottom: red solid 10rpx;':''}}padding-bottom:5rpx">
+    <van-col span="8" bindtap="setShow2">
+      <view style="{{show==1?'border-bottom: red solid 5rpx;':''}}padding-bottom:5rpx">
+        进行中</view>
+    </van-col>
+    <van-col span="8" bindtap="setShow3">
+      <view style="{{show==2?'border-bottom: red solid 5rpx;':''}}padding-bottom:5rpx">
         已完成</view>
     </van-col>
   </van-row>
 </view>
 
-<view wx:if="{{show}}">
-  <view class="content" wx:for="{{10}}" wx:key="this">
+
+
+<view>
+  <view wx:if="{{carts.length ==0}}">
+    <van-empty description="暂无记录" />
+  </view>
+  <view class="content" wx:for="{{carts}}" wx:key="log_id">
+    <navigator url="/pages/giftDetail/index?gift_id={{item.gift_id}}" hover-class="none">
+      <van-row gutter="1">
+        <van-col span="20">
+
+          <van-row>
+            <van-col span="24">
+              <view>礼物名称：{{ item.name }}</view>
+            </van-col>
+
+            <van-col span="12">
+              <view style="font-size: small;margin:5rpx">
+                <text>消耗积分：</text><text style="color: red;">{{ item.cost}}</text>
+              </view>
+            </van-col>
+            <van-col span="12">
+              <view style="font-size: small;margin:5rpx"><text>兑换数量：</text><text style="color: red;">{{
+                  item.number
+                  }}</text></view>
+            </van-col>
+            <van-col span="24">
+              <view style="font-size: small;margin:5rpx"><text>兑换时间: {{ item.date1 }}</text></view>
+            </van-col>
+          </van-row>
+
+        </van-col>
+        <van-col span="4" style="height: 80%;" wx:if="{{show==0}}">
+          <view class="content_vertical" style="height: 60px;right: 0px;">
+            <!-- <van-button type="danger" bind:click="delete" data-log_id="{{item.log_id}}" data-tip="{{ item.tip}}">撤销
+          </van-button> -->
+            <van-icon color="red" size="30px" name="delete-o" bind:click="delete" data-log_id="{{item.id}}" />
+          </view>
+        </van-col>
+        <van-col span="24" style="font-size: small;margin:5rpx">
+          <view>兑换编号：{{ item.id }}</view>
+        </van-col>
+        <van-col span="24" style="font-size: small;margin:5rpx">
+          <view>取货方式：{{ item.self_pick?"自提":"邮寄" }}</view>
+        </van-col>
+        <van-col span="24" style="font-size: small;margin:5rpx" wx:if="{{item.self_pick}}">
+          <view>取货码：{{ item.id }}</view>
+        </van-col>
+        <van-col span="12" style="font-size: small;margin:5rpx" wx:if="{{!item.self_pick}}">
+          <view>收货人姓名：{{ item.address.username}}</view>
+        </van-col>
+        <van-col span="12" style="font-size: small;margin:5rpx" wx:if="{{!item.self_pick}}">
+          <view>收货人电话：{{ item.address.telNumber}}</view>
+        </van-col>
+        <van-col span="12" style="font-size: small;margin:5rpx" wx:if="{{!item.self_pick}}">
+          <view>邮编：{{ item.address.postalCode}}</view>
+        </van-col>
+        <van-col span="24" style="font-size: small;margin:5rpx" wx:if="{{!item.self_pick}}">
+          <view>详细地址：{{
+            item.address.provinceName+item.address.cityName+item.address.countyName+item.address.detailInfo}}</view>
+        </van-col>
+      </van-row>
+    </navigator>
+  </view>
+</view>
+<view style="align-items: center;width: 100%;text-align: center;margin-top: 20;" wx:if="{{noData}}">- 无更多数据 -</view>
+<!-- <view wx:else>
+  <view wx:if="{{transaction_record.doneCompleted.length ==0}}">
+    <van-empty description="暂无记录" />
+  </view>
+  <view class="content" wx:for="{{transaction_record.doneCompleted}}" wx:key="log_id">
+
     <van-row gutter="10">
       <van-col span="6">
-        <van-image  fit="widthFix" width="80" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        <view>
+          <van-image fit="widthFix" width="100%" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+        </view>
       </van-col>
-      <van-col span="12">
-        <view>猫</view>
-        <view>积分：5 数量：×2</view>
-      </van-col>
-      <van-col span="6" style="margin-top:50px">
-        <van-button type="danger">撤销</van-button>
+      <van-col span="18">
+        <navigator url="/pages/giftDetail/index?gift_id={{item.gift_id}}" hover-class="none">
+          <van-row>
+            <van-col span="24">
+              <view>{{ item.content }}</view>
+            </van-col>
+            <van-col span="12">
+              <view style="font-size: small;margin:5rpx">
+                <text>积分：</text><text style="color: red;">{{ item.tip}}</text>
+              </view>
+            </van-col>
+            <van-col span="12">
+              <view style="font-size: small;margin:5rpx"><text>数量：</text><text style="color: red;">{{
+                  item.number
+                  }}</text></view>
+            </van-col>
+            <van-col span="24">
+              <view style="font-size: small;margin:5rpx"><text>兑换日期: {{ item.date1 }}</text></view>
+            </van-col>
+          </van-row>
+        </navigator>
       </van-col>
     </van-row>
   </view>
-</view>
-<view wx:else>
-  <view class="content" wx:for="{{10}}" wx:key="this">
-    <van-row gutter="10">
-      <van-col span="6">
-        <van-image  fit="widthFix" width="80" src="https://img.yzcdn.cn/vant/cat.jpeg" />
-      </van-col>
-      <van-col span="12">
-        <view>猫</view>
-        <view>积分：5 数量：×2</view>
-      </van-col>
-      <van-col span="6" >
-        <view style="margin-top:10px;font-size:25rpx">2021-08-31</view>
-      </van-col>
-    </van-row>
-  </view>
-</view>
+</view> -->

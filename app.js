@@ -1,6 +1,7 @@
 // app.js
 App({
   data_test: {
+    
     jobs_test: [{
         job_id: 123,
         job_name: '智慧物流工程师',
@@ -100,37 +101,36 @@ App({
     ],
     // 模拟投递记录 开始
     send_job: [{
-        job_id: 123,
-        job_name: '智慧物流工程师',
-        job_type: '技术类',
-        job_date: '2021-08-28',
-        job_address: '合肥',
-        job_salary: '7000-12000',
-        job_status: 1,
-        steps: [{
-            text: '简历初审',
-            desc: '2021-08-29',
-            inactiveIcon: 'success'
-          },
-          {
-            text: '一面',
-            desc: '2021-08-30',
-            inactiveIcon: 'success'
-          },
-          {
-            text: '二面',
-            desc: '2021-08-30',
-            activeIcon: 'pause-circle-o',
-            inactiveIcon: 'success',
-          },
-          {
-            text: '签订合同',
-            desc: '未定',
-          },
-        ],
-        active: 2
-      },
-    ],
+      job_id: 123,
+      job_name: '智慧物流工程师',
+      job_type: '技术类',
+      job_date: '2021-08-28',
+      job_address: '合肥',
+      job_salary: '7000-12000',
+      job_status: 1,
+      steps: [{
+          text: '简历初审',
+          desc: '2021-08-29',
+          inactiveIcon: 'success'
+        },
+        {
+          text: '一面',
+          desc: '2021-08-30',
+          inactiveIcon: 'success'
+        },
+        {
+          text: '二面',
+          desc: '2021-08-30',
+          activeIcon: 'pause-circle-o',
+          inactiveIcon: 'success',
+        },
+        {
+          text: '签订合同',
+          desc: '未定',
+        },
+      ],
+      active: 2
+    }, ],
     // 模拟投递记录 结束
     job_panel: {
       job_name: '智慧物流工程师',
@@ -173,129 +173,206 @@ App({
     // 简历 结束  
 
     // 积分规则 开始
-    help:'<div style="white-space: pre;">1、转发你的邀请码\n\t详情请见：我的-邀请码</div>'
-    + '<div style="white-space: pre;">2、被邀请用户完成注册，+1分</div>'
-    + '<div style="white-space: pre;">3、被邀请用户完成简历提交，+1分</div>'
-    + '<div style="white-space: pre;">4、被邀请用户简历合格，+10分</div>'
-    + '<div style="white-space: pre;">5、被邀请用户简历邀请面试，+50分</div>'
-    + '<div style="white-space: pre;">6、被邀请用户简历通过面试，+100分</div>'
-    + '<div style="white-space: pre;">7、被邀请用户签订合同，+300分</div>'
-    + '<div style="white-space: pre;">8、被邀请用户入职满3个月，+1000分</div>',
+    help: '<div style="white-space: pre;">1、转发你的邀请码\n\t详情请见：我的-邀请码</div>' +
+      '<div style="white-space: pre;">2、被邀请用户完成注册，+1分</div>' +
+      '<div style="white-space: pre;">3、被邀请用户完成简历提交，+1分</div>' +
+      '<div style="white-space: pre;">4、被邀请用户简历合格，+10分</div>' +
+      '<div style="white-space: pre;">5、被邀请用户简历邀请面试，+50分</div>' +
+      '<div style="white-space: pre;">6、被邀请用户简历通过面试，+100分</div>' +
+      '<div style="white-space: pre;">7、被邀请用户签订合同，+300分</div>' +
+      '<div style="white-space: pre;">8、被邀请用户入职满3个月，+1000分</div>',
     // 积分规则 结束
-    
+
     //礼物列表 开始
-    gifts:[
-      {
-          gift_id:1,
-          gift_image:'https://img.yzcdn.cn/vant/cat.jpeg',
-          gift_name:'宠物猫',
-          gift_desc:'描述：主人，快把我带回家吧描述：主人，快把我带回家吧',
-          gift_type:['礼物'],
-          gift_credit:5
+    gifts: [{
+        gift_id: 1,
+        gift_image: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        gift_name: '宠物猫',
+        gift_desc: '描述：主人，快把我带回家吧描述：主人，快把我带回家吧',
+        gift_type: ['礼物'],
+        gift_credit: 5
       },
       {
-          gift_id:2,
-          gift_image:'https://img.yzcdn.cn/vant/cat.jpeg',
-          gift_name:'耳机',
-          gift_desc:'描述：精选二手耳机',
-          gift_type:['礼物'],
-          gift_credit:5
+        gift_id: 2,
+        gift_image: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        gift_name: '耳机',
+        gift_desc: '描述：精选二手耳机',
+        gift_type: ['礼物'],
+        gift_credit: 500
       },
       {
-          gift_id:3,
-          gift_image:'https://img.yzcdn.cn/vant/cat.jpeg',
-          gift_name:'5%绩效加成',
-          gift_desc:'描述：当月绩效奖金+5%',
-          gift_type:['福利'],
-          gift_credit:5
+        gift_id: 3,
+        gift_image: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        gift_name: '5%绩效加成',
+        gift_desc: '描述：当月绩效奖金+5%',
+        gift_type: ['福利'],
+        gift_credit: 5000
       },
       {
-          gift_id:4,
-          gift_image:'https://img.yzcdn.cn/vant/cat.jpeg',
-          gift_name:'10元红包',
-          gift_desc:'描述',
-          gift_type:['福利'],
-          gift_credit:5
+        gift_id: 4,
+        gift_image: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        gift_name: '10元红包',
+        gift_desc: '描述',
+        gift_type: ['福利'],
+        gift_credit: 50
       },
       {
-          gift_id:5,
-          gift_image:'https://img.yzcdn.cn/vant/cat.jpeg',
-          gift_name:'20元红包',
-          gift_desc:'描述',
-          gift_type:['福利'],
-          gift_credit:10
-      },
-  {
-          gift_id:6,
-          gift_image:'https://img.yzcdn.cn/vant/cat.jpeg',
-          gift_name:'50元红包',
-          gift_desc:'描述',
-          gift_type:['福利'],
-          gift_credit:50
+        gift_id: 5,
+        gift_image: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        gift_name: '20元红包',
+        gift_desc: '描述',
+        gift_type: ['福利'],
+        gift_credit: 100
       },
       {
-          gift_id:7,
-          gift_image:'https://img.yzcdn.cn/vant/cat.jpeg',
-          gift_name:'10元天猫优惠券',
-          gift_desc:'描述',
-          gift_type:['福利'],
-          gift_credit:3
+        gift_id: 6,
+        gift_image: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        gift_name: '50元红包',
+        gift_desc: '描述',
+        gift_type: ['福利'],
+        gift_credit: 200
       },
       {
-          gift_id:8,
-          gift_image:'https://img.yzcdn.cn/vant/cat.jpeg',
-          gift_name:'20元天猫优惠券',
-          gift_desc:'描述',
-          gift_type:['福利'],
-          gift_credit:5
+        gift_id: 7,
+        gift_image: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        gift_name: '10元天猫优惠券',
+        gift_desc: '描述',
+        gift_type: ['福利'],
+        gift_credit: 30
       },
       {
-          gift_id:9,
-          gift_image:'https://img.yzcdn.cn/vant/cat.jpeg',
-          gift_name:'50元天猫优惠券',
-          gift_desc:'描述',
-          gift_type:['福利'],
-          gift_credit:10
+        gift_id: 8,
+        gift_image: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        gift_name: '20元天猫优惠券',
+        gift_desc: '描述',
+        gift_type: ['福利'],
+        gift_credit: 50
       },
+      {
+        gift_id: 9,
+        gift_image: 'https://img.yzcdn.cn/vant/cat.jpeg',
+        gift_name: '50元天猫优惠券',
+        gift_desc: '描述',
+        gift_type: ['福利'],
+        gift_credit: 100
+      },
+    ],
+    //礼物列表 结束
+
+  },
+
+  data_test_resume: {
+    resumeInfo: {
+      success: false
+    }
+  },
+  data_test_credit: {
+    available_credits: 1362,
+    lock_credits: 3,
+    income_log: [{
+        content: '被邀请用户***完成简历提交',
+        date1: '2021年9月11日',
+        tip: '+1'
+      },
+      {
+        content: '被邀请用户***简历合格',
+        date1: '2021年9月10日',
+        tip: '+10'
+      },
+      {
+        content: '被邀请用户***简历邀请面试',
+        date1: '2021年9月9日',
+        tip: '+50'
+      },
+      {
+        content: '被邀请用户***入职满3个月',
+        date1: '2021年9月1日',
+        tip: '+1000'
+      },
+      {
+        content: '被邀请用户***签订合同',
+        date1: '2021年9月1日',
+        tip: '+300'
+      },
+      {
+        content: '被邀请用户***简历通过面试',
+        date1: '2021年9月1日',
+        tip: '+100'
+      },
+      {
+        content: '被邀请用户***完成简历提交',
+        date1: '2021年8月11日',
+        tip: '+1'
+      },
+      {
+        content: '被邀请用户***完成简历提交',
+        date1: '2021年8月11日',
+        tip: '+1'
+      },
+      {
+        content: '被邀请用户***完成简历提交',
+        date1: '2021年8月11日',
+        tip: '+1'
+      },
+    ],
+    outcome_log: [{
+      log_id: 0,
+      success: false,
+      content: '耳机',
+      date1: '2021年9月11日',
+      number: 1,
+      gift_id: 2,
+      tip: '-500'
+    },{
+      log_id: 1,
+      success: true,
+      content: '耳机',
+      date1: '2021年9月11日',
+      number: 1,
+      gift_id: 2,
+      tip: '-500'
+    },
   ],
-  //礼物列表 结束
-
-  },
-
-  data_test_resume:{
-    success:false
-  },
-  data_test_credit:{
-    available_credits:1362,
-    lock_credits:3,
-    income_log:[
-      {content:'被邀请用户***完成简历提交',date1:'2021年9月11日',tip:'+1'},
-      {content:'被邀请用户***简历合格',date1:'2021年9月10日',tip:'+10'},
-      {content:'被邀请用户***简历邀请面试',date1:'2021年9月9日',tip:'+50'},
-      {content:'被邀请用户***入职满3个月',date1:'2021年9月1日',tip:'+1000'},
-      {content:'被邀请用户***签订合同',date1:'2021年9月1日',tip:'+300'},
-      {content:'被邀请用户***简历通过面试',date1:'2021年9月1日',tip:'+100'},
-      {content:'被邀请用户***完成简历提交',date1:'2021年8月11日',tip:'+1'},
-      {content:'被邀请用户***完成简历提交',date1:'2021年8月11日',tip:'+1'},
-      {content:'被邀请用户***完成简历提交',date1:'2021年8月11日',tip:'+1'},
+    lock_log: [{
+        content: '未知原因锁定',
+        date1: '2021年9月1日',
+        tip: '2'
+      },
+      {
+        content: '未知原因锁定',
+        date1: '2021年9月1日',
+        tip: '1'
+      },
     ],
-    outcome_log:[
-      {content:'兑换礼物：耳机',date1:'2021年9月11日',tip:'-500'},
-      {content:'兑换福利：休息0.5天',date1:'2021年9月10日',tip:'-600'},
-    ],
-    lock_log:[
-      {content:'未知原因锁定',date1:'2021年9月1日',tip:'2'},
-      {content:'未知原因锁定',date1:'2021年9月1日',tip:'1'},
-    ],
-    time_log:[
-      {content:'被邀请用户***简历通过面试',date1:'2021年9月1日',date2:'2021年10月1日',tip:'100'},
-      {content:'被邀请用户***完成简历提交',date1:'2021年8月11日',date2:'2021年9月11日',tip:'1'},
-      {content:'被邀请用户***完成简历提交',date1:'2021年8月11日',date2:'2021年9月11日',tip:'1'},
-      {content:'被邀请用户***完成简历提交',date1:'2021年8月11日',date2:'2021年9月11日',tip:'1'},
+    time_log: [{
+        content: '被邀请用户***简历通过面试',
+        date1: '2021年9月1日',
+        date2: '2021年10月1日',
+        tip: '100'
+      },
+      {
+        content: '被邀请用户***完成简历提交',
+        date1: '2021年8月11日',
+        date2: '2021年9月11日',
+        tip: '1'
+      },
+      {
+        content: '被邀请用户***完成简历提交',
+        date1: '2021年8月11日',
+        date2: '2021年9月11日',
+        tip: '1'
+      },
+      {
+        content: '被邀请用户***完成简历提交',
+        date1: '2021年8月11日',
+        date2: '2021年9月11日',
+        tip: '1'
+      },
     ]
   },
 
-  onLaunch() {
+  onLaunch(option) {
+    console.log(option);
     // 展示本地存储能力
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -303,24 +380,54 @@ App({
 
     // 登录
     wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      success(res){
+        wx.request({
+          url: "http://120.55.59.119/api/user",
+          method: "GET",
+          data:{
+            code: res.code,
+            inviter: option.inviter
+          },
+          header: {
+            'content-type': 'application/x-www-form-urlencoded',
+            // 'Content-Type': 'application/json'
+          },
+          success(res1){
+            if(res1.data.code==0){
+              let userInfo = wx.getStorageSync('userInfo')
+              if(userInfo){
+                let msg = JSON.parse(res1.data.msg)
+                msg.avatarUrl = userInfo.avatarUrl;
+                msg.nickName = userInfo.nickName;
+                wx.setStorageSync('userInfo',msg)
+              }else{
+                wx.setStorageSync('userInfo', JSON.parse(res1.data.msg));
+              }
+              wx.setStorageSync('openId', res1.data.data);
+              wx.setStorageSync('shareCode', res1.data.shareCode);
+            }
+          },
+          fail(res2){
+            console.log(res2)
+          }
+        })
       }
     })
 
-   
-    if(!wx.getStorageSync('data_test')){
+
+    if (!wx.getStorageSync('data_test')) {
       wx.setStorageSync('data_test', this.data_test)
     }
-    if(!wx.getStorageSync('data_test_resume')){
-      wx.setStorageSync('data_test_resume',this.data_test_resume)
+    if (!wx.getStorageSync('data_test_resume')) {
+      wx.setStorageSync('data_test_resume', this.data_test_resume)
     }
-    if(!wx.getStorageSync('data_test_credit')){
+    if (!wx.getStorageSync('data_test_credit')) {
       wx.setStorageSync('data_test_credit', this.data_test_credit)
     }
-   
+
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    ip:"http://120.55.59.119"
   }
 })

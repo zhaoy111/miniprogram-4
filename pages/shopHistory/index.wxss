@@ -5,10 +5,10 @@
   background: white
 }
 .content{
+  height: 300rpx;
   background: white;
-  margin: 10rpx;
+  margin: 5rpx 0rpx;
   padding: 20rpx;
-  border-radius: 30rpx;
 }
 page{
   background: rgb(241, 237, 237);

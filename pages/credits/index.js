@@ -1,26 +1,99 @@
+import {
+  http
+} from "../../utils/request";
+
 // pages/credits/index.js
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    data_test_credit: '',
-    active: 0,
-    loading: false
+    score: 0,
+    lockScore: 0,
+    loading: false,
+    page: 1,
+    status: "0",
+    log: [],
+    noData:false
   },
 
   changePage(e) {
+    if(this.data.status != e.currentTarget.dataset.active){
+      this.setData({
+        status: e.currentTarget.dataset.active,
+        page:1,
+        log:[],
+      })
+      this.getLog()
+    }
+    
+  },
+
+  getScore: function (params) {
+    //获取积分
+    http({
+      url: this.data.ip + "/api/user/info",
+      method: "GET",
+      data: {
+        openId: wx.getStorageSync('openId')
+      }
+    }).then((res1) => {
+      if (res1.data.code == 0) {
+        this.setData({
+          page:this.data.page+1,
+          score: res1.data.data.score,
+          lockScore: res1.data.data.lockScore,
+        })
+      }
+    });
+    //获取积分结束   
+  },
+
+  getLog: function (params) {
+    if(this.data.noData){
+      return;
+    }
     this.setData({
-      active: e.currentTarget.dataset.active
+      loading: true
     })
+    http({
+      url: this.data.ip + "/api/log/user",
+      method: "GET",
+      data: {
+        openId: wx.getStorageSync('openId'),
+        page: this.data.page,
+        limit: 10,
+        type: 1
+      }
+    }).then((res1) => {
+      if (res1.data.code == 0) {
+        this.setData({
+          log: [...this.data.log,...res1.data.data],
+          loading: false,
+          page:this.data.page + 1,
+          noData:res1.data.data.length < 10
+        })
+      }else{
+        this.setData({loading:false,noData:false})
+      }
+    }).catch(()=>{
+      this.setData({
+        loading: false
+      })
+    });
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      ip: getApp().globalData.ip
+    })
+    this.getScore()
+    this.getLog()
   },
 
   /**
@@ -64,26 +137,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.setData({
-      loading: true
-    })
-    setTimeout(() => {
-      if (this.data.active == 0) {
-        this.data.data_test_credit.income_log = [...this.data.data_test_credit.income_log, ...this.data.data_test_credit.income_log]
-      } else if (this.data.active == 1) {
-        this.data.data_test_credit.outcoutcome_log = [...this.data.data_test_credit.outcome_log, ...this.data.data_test_credit.outcome_log]
-      } else if (this.data.active == 2) {
-        this.data.data_test_credit.lock_log = [...this.data.data_test_credit.lock_log, ...this.data.data_test_credit.lock_log]
-      } else {
-        this.data.data_test_credit.time_log = [...this.data.data_test_credit.time_log, ...this.data.data_test_credit.time_log]
-      }
-
-      this.setData({
-        data_test_credit: this.data.data_test_credit,
-        loading:false
-      })
-
-    }, 1500);
+    this.getLog()
   },
 
   /**

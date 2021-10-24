@@ -7,10 +7,9 @@
 
 <van-dialog use-slot title="邀请码" show="{{ show2 }}" bind:close="onClose" bind:getImage="getImage">
   <view style="text-align:center;margin:50rpx 0;">
-    <van-image width="100" height="100" src="/images/job.jpg" />
+    <van-image width="200" height="200" src="{{ image }}" />
   </view>
 </van-dialog>
-
 <view class="tip_panel">
   <van-row gutter="10">
     <van-col span="7">
@@ -28,7 +27,7 @@
     <van-col span="11">
       <navigator url="/pages/credits/index" hover-class="none">
         <view class="tip" style="color:black">
-          我的积分:<text style="color:red">{{credits_data}}</text>
+          我的积分:<text style="color:red">{{score}}</text>
         </view>
       </navigator>
     </van-col>
@@ -49,7 +48,7 @@
     <van-col span="2">
       <navigator url="/pages/shopHistory/index" hover-class="none">
         <view class="cart">
-          <van-icon name="cart-o" size="30px" info="10" />
+          <van-icon name="cart-o" size="30px" info="{{count == 0 ? '' : count}}" />
         </view>
       </navigator>
     </van-col>
@@ -70,7 +69,7 @@
     gift_credit="{{item.gift_credit}}" wx:key="this"></giftCart>
   <view style="text-align:center">
     <van-loading wx:if="{{loading}}" color="rgb(25, 137, 250)" size="20" type="spinner">加载中...</van-loading>
-    <!-- <text wx:if="{{newjob}}">- 无更多数据 -</text> -->
+    <text wx:if="{{newjob}}">- 无更多数据 -</text>
   </view>
 </view>
 <!-- 积分兑换礼品 结束 -->

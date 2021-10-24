@@ -11,3 +11,9 @@
 .content{
   
 }
+
+.content_vertical{
+  height: 45px;
+  width: 65px;
+  background-color: red;
+}

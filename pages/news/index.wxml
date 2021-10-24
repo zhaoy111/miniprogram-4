@@ -1,5 +1,5 @@
 <!-- 未读/已读状态切换 开始 -->
-<view class="title">
+<!-- <view class="title">
   <van-row>
     <van-col span="12" bindtap="changeStatus" data-status="0">
       <view class="{{active==0?'active':''}}">未读</view>
@@ -8,10 +8,20 @@
       <view class="{{active==1?'active':''}}">已读</view>
     </van-col>
   </van-row>
+</view> -->
+<view>
+  <view wx:for="{{logs}}" wx:key="id" class="content_news">
+    <van-swipe-cell right-width="{{ 0 }}">
+      <view bindtap="clickNews" data-index="{{index}}" class="content_text">{{logs[index].description}}</view>
+      <view bindtap="clickNews" data-index="{{index}}"
+        style="text-align:right;font-size:small;color:gray;padding-right:20rpx;padding-bottom:20rpx;">{{logs[index].date}}</view>
+      <view slot="right" class="text_del" bindtap="delNews">删除</view>
+    </van-swipe-cell>
+  </view>
 </view>
 <!-- 未读/已读状态切换 结束 -->
 <!-- 未读消息列表 开始 -->
-<view wx:if="{{active==0}}">
+<!-- <view wx:if="{{active==0}}">
   <view wx:for="{{all_news}}" wx:key="id" class="content_news">
     <van-swipe-cell right-width="{{ 65 }}">
       <view bindtap="clickNews" data-index="{{index}}" class="content_text">{{all_news[index].text}}</view>
@@ -20,10 +30,10 @@
       <view slot="right" class="text_del" bindtap="delNews">删除</view>
     </van-swipe-cell>
   </view>
-</view>
+</view> -->
 <!-- 未读消息列表 结束 -->
 <!-- 已读消息列表 开始 -->
-<view wx:if="{{active==1}}">
+<!-- <view wx:if="{{active==1}}">
   <view wx:for="{{read_news}}" wx:key="id" class="content_news">
     <van-swipe-cell right-width="{{ 65 }}">
       <view bindtap="clickNews" data-index="{{index}}" class="content_text">{{all_news[index].text}}</view>
@@ -32,14 +42,13 @@
       <view slot="right" class="text_del">删除</view>
     </van-swipe-cell>
   </view>
-</view>
+</view> -->
 <!-- 已读消息列表 结束 -->
 <!-- 消息展示 开始 -->
-<van-dialog use-slot title="标题" show="{{ show }}" closeOnClickOverlay="true" show-cancel-button show-confirm-button="{{active==1?false:true}}" bind:cancel="delNews" bind:confirm="addNews"
-  cancelButtonText="删除" confirmButtonText="已读">
+<van-dialog use-slot title=" {{logs[index].description}}" show="{{ show }}" closeOnClickOverlay="true"  show-confirm-button="{{active==1?false:true}}" bind:confirm="close"
+   confirmButtonText="确认">
   <view class="text_show">
-    {{active==0?all_news[index].text:read_news[index].text}}
+    {{logs[index].msg}}
   </view>
-  
 </van-dialog>
 <!-- 消息展示 结束 -->

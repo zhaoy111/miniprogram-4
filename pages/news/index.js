@@ -1,3 +1,5 @@
+import { http } from "../../utils/request";
+
 // pages/news/index.js
 Page({
 
@@ -51,9 +53,46 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      ip:getApp().globalData.ip,
+      page:1,
+      logs:[],
+      noData:false
+    })
+    this.getLog()
   },
 
+  getLog: function (params) {
+    if(this.data.noData){
+      return;
+    }
+    http({
+      url: this.data.ip + "/api/log/user",
+      method: "GET",
+      data: {
+        openId: wx.getStorageSync('openId'),
+        page: this.data.page,
+        limit: 20,
+        type: 2
+      }
+    }).then((res1) => {
+      if (res1.data.code == 0) {
+        this.setData({
+          logs: [...this.data.logs,...res1.data.data],
+          loading: false,
+          page:this.data.page+1,
+          noData:res1.data.data.length < 10
+        })
+      }
+    }).catch(()=>{
+    });
+  },
+
+  close:function (params) {
+    this.setData({
+      show:false
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

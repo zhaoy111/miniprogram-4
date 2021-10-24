@@ -1,4 +1,11 @@
 // pages/send/index.js
+
+import {
+  http
+} from "../../utils/request";
+
+let myApp = getApp()
+
 Page({
 
   /**
@@ -6,18 +13,43 @@ Page({
    */
   data: {
     send_job: [],
-
   },
 
+  step: [{
+      text: "简历初审",
+      desc: "未定",
+      // inactiveIcon: "success",
+      activeIcon: "pause-circle-o",
+    },
+    {
+      text: "一面",
+      desc: "未定",
+      // inactiveIcon: "success",
+      activeIcon: "pause-circle-o",
+    },
+    {
+      text: "二面",
+      desc: "未定",
+      activeIcon: "pause-circle-o",
+      // inactiveIcon: "success"
+    },
+    {
+      text: "签订合同",
+      desc: "未定",
+      activeIcon: "pause-circle-o",
+      // inactiveIcon: "success"
+    }
+  ],
+
   delete(e) {
-   this.setData({
-     send_job:wx.getStorageSync("data_test").send_job.filter(item => {
-       return item.job_id!=e.currentTarget.dataset.job_id
-     })
-   })
-   const temp = wx.getStorageSync("data_test");
-   temp.send_job=this.data.send_job
-   wx.setStorageSync('data_test', temp)
+    this.setData({
+      send_job: wx.getStorageSync("data_test").send_job.filter(item => {
+        return item.job_id != e.currentTarget.dataset.job_id
+      })
+    })
+    const temp = wx.getStorageSync("data_test");
+    temp.send_job = this.data.send_job
+    wx.setStorageSync('data_test', temp)
   },
 
   sendJob(e) {
@@ -30,56 +62,62 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      send_job:JSON.parse(JSON.stringify(wx.getStorageSync("data_test").send_job))
+      ip:myApp.globalData.ip
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getSend()
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  async getSend() {
+    
+    let res = await http({
+      url: this.data.ip +  "/api/job/send",
+      data: {
+        openId: wx.getStorageSync('openId')
+      },
+      method: "GET",
+    });
+    this.setData({
+      send_job:[]
+    })
+    res.data.data.forEach(send => {
+      let steps = JSON.parse(JSON.stringify(this.step));
+      for (var i = 0; i <= send.active; i++) {
+        if(i!==4){
+          steps[i].desc = (send["date" + (i + 1)] + "").split(" ")[0]
+        }
+      }
+      send.steps = steps;
+      this.data.send_job.push(send)
+    })
+    this.setData({
+      send_job: this.data.send_job
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  async deleteSend(e) {
+    let res = await http({
+      method: "DELETE",
+      url: this.data.ip + "/api/job/send?id=" + e.currentTarget.dataset.id + "&openId=" + wx.getStorageSync('openId'),
+      data: {
+        id: e.currentTarget.dataset.id,
+        openId: wx.getStorageSync('openId')
+      },
+      contentType: "application/json",
+      dataType: "json",
+    })
+    if (res.data.code == 0) {
+      this.setData({
+        send_job: this.data.send_job.filter(send => {
+          return send.id != e.currentTarget.dataset.id;
+        })
+      })
+    }
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

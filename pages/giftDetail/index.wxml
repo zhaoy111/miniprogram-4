@@ -1,0 +1,41 @@
+<view>
+  <van-image width="375.2" height="200" use-error-slot alt="图片加载失败" fit="fit" src="{{gift_detail.gift_image}}" >
+  </van-image>
+</view>
+<view class="desc">
+  <text>{{gift_detail.gift_name}}</text>
+</view>
+<view class="desc">
+  <text>{{gift_detail.gift_desc}}</text>
+</view>
+<view>
+  <view class="credits1">库存：{{gift_detail.count}}</view>
+  <view class="credits2">{{gift_detail.gift_credit}} 积分</view>
+</view>
+
+
+<van-divider />
+
+<view style="margin:30px 50px">
+  <van-button wx:if="{{deal_status}}" type="primary" size="large" round="true" bind:click="click">立即兑换</van-button>
+  <van-button wx:if="{{!deal_status}}" type="primary" size="large" round="true" bind:click="click" disabled>暂无库存
+  </van-button>
+</view>
+<van-divider contentPosition="center">活动规则</van-divider>
+<view class="tip">
+  <rich-text nodes="{{tip}}"></rich-text>
+</view>
+
+<van-dialog closeOnClickOverlay="true" use-slot title="请选择收货方式并确认兑换数量" show="{{ show }}" show-cancel-button
+  bind:cancel="self" bind:confirm="chooseAddress" bind:close="onClose" confirm-button-text="邮寄" cancel-button-text="自提"
+  confirm-button-color="#ee0a24" cancel-button-color="ee0a24">
+  <view style="margin:20rpx">
+    <van-row>
+      <van-col span="12" style="text-align:left">请选择数量</van-col>
+      <van-col span="12" style="text-align:right">
+        <van-stepper value="{{ 1 }}" integer min="1" max="10" bind:change="changeNumber" />
+      </van-col>
+    </van-row>
+  </view>
+
+</van-dialog>

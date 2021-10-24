@@ -4,7 +4,7 @@
   </view>
 </view>
 <view wx:else="{{send_job.length>=0}}">
-  <van-swipe-cell wx:for="{{send_job}}" wx:key="job_id" right-width="{{ item.steps.length === (item.active + 1) ? '0' : '65' }}">
+  <van-swipe-cell wx:for="{{send_job}}" wx:key="job_id" right-width="{{ item.active === 0 ? '65' : '0' }}">
     <navigator url="/pages/jobDetail/index?job_id={{item.job_id}}" hover-class="none">
       <view class="panel2">
         <van-row>
@@ -13,13 +13,13 @@
             <van-icon name="location-o" /> {{item.job_address}}</van-col>
           <van-col span="24">
             <van-steps steps="{{ item.steps }}" active="{{ item.active }}"
-              active-color="{{item.job_status!=0 ? 'green' : 'red'}}" />
+              active-color="{{item.pass!=0 ? 'green' : 'red'}}" />
           </van-col>
         </van-row>
       </view>
     </navigator>
-    <view slot="right" class="delete content_vertical">
-      <view bindtap="delete" data-job_id="{{item.job_id}}">撤销</view>
+    <view slot="right" class="delete content_vertical" bindtap="deleteSend" data-id="{{item.id}}">
+      <view >撤销</view>
     </view>
   </van-swipe-cell>
 </view>

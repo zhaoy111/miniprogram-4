@@ -5,7 +5,7 @@ Component({
    */
   properties: {
         job_id:{
-          type:Number,
+          type:String,
           value: 123
         },
         job_name:{
