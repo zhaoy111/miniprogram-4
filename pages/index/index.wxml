@@ -31,5 +31,6 @@
   <view style="text-align:center">
     <van-loading wx:if="{{loading}}" color="rgb(25, 137, 250)" size="20" type="spinner">加载中...</van-loading>
     <text wx:if="{{newjob}}">- 无更多数据 -</text>
+    <text wx:if="{{nextTry}}" bindtap="onReachBottom" >- 点击重新加载 -</text>
   </view>
 </view>

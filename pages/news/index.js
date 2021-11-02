@@ -19,6 +19,7 @@ Page({
     ],
     read_news:[],
     index:0,
+    nextTry:false
   },
 
   delNews(e){
@@ -42,7 +43,6 @@ Page({
   },
 
   changeStatus(e){
-    console.log(e);
     
     this.setData({
       active: e.currentTarget.dataset.status
@@ -66,6 +66,7 @@ Page({
     if(this.data.noData){
       return;
     }
+    this.setData({nextTry:false})
     http({
       url: this.data.ip + "/api/log/user",
       method: "GET",
@@ -76,13 +77,15 @@ Page({
         type: 2
       }
     }).then((res1) => {
-      if (res1.data.code == 0) {
+      if (res1.data.code === 0) {
         this.setData({
           logs: [...this.data.logs,...res1.data.data],
           loading: false,
           page:this.data.page+1,
           noData:res1.data.data.length < 10
         })
+      }else{
+        this.setData({nextTry:true})
       }
     }).catch(()=>{
     });
@@ -132,7 +135,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    this.getLog()
   },
 
   /**

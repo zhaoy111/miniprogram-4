@@ -372,7 +372,6 @@ App({
   },
 
   onLaunch(option) {
-    console.log(option);
     // 展示本地存储能力
     const logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -382,7 +381,7 @@ App({
     wx.login({
       success(res){
         wx.request({
-          url: "http://120.55.59.119/api/user",
+          url: "https://www.jaclogistic.cn/job/api/user",
           method: "GET",
           data:{
             code: res.code,
@@ -428,6 +427,6 @@ App({
   },
   globalData: {
     userInfo: null,
-    ip:"http://120.55.59.119"
+    ip:"https://www.jaclogistic.cn/job"
   }
 })

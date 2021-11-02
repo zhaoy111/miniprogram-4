@@ -37,7 +37,7 @@ Page({
   },
 
   getUserInfo(event) {
-    console.log(event.detail);
+    
   },
 
   onClose() {
@@ -131,6 +131,11 @@ Page({
     }).then((res1) => {
       if (res1.data.code == 0) {
         if (res1.data.data.length < 10) {
+          res1.data.data.forEach( gift => {
+            if(gift.gift_image.indexOf("/")===0){
+              gift.gift_image = this.data.ip + gift.gift_image
+            }
+          })
           this.setData({
             newjob: true,
             loading: false,
@@ -143,6 +148,11 @@ Page({
             gifts: [...this.data.gifts, ...res1.data.data]
           })
         }
+      }else{
+        this.setData({
+          newjob: false,
+          loading: false,
+        })
       }
     });
     //获取礼物结束
@@ -234,6 +244,7 @@ Page({
     this.setData({
       credits_data: wx.getStorageSync('data_test_credit').available_credits
     });
+    this.getGift()
     this.getCart();
     this.getScore();
   },

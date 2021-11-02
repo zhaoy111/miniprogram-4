@@ -89,7 +89,7 @@ Page({
       let steps = JSON.parse(JSON.stringify(this.step));
       for (var i = 0; i <= send.active; i++) {
         if(i!==4){
-          steps[i].desc = (send["date" + (i + 1)] + "").split(" ")[0]
+          steps[i].desc = this.getdate((send["date" + (i + 1)] + "").split(" ")[0])
         }
       }
       send.steps = steps;
@@ -119,5 +119,13 @@ Page({
       })
     }
   },
+
+  getdate(date) {
+    var now = new Date(Number.parseInt(date)),
+        y = now.getFullYear(),
+        m = now.getMonth() + 1,
+        d = now.getDate();
+    return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d);
+}
 
 })

@@ -91,7 +91,7 @@ Page({
     if (this.check(0) && this.check(1) && this.check(2) && this.check(5) && this.data.resumeInfo.name != '' && this.data.resumeInfo.phone != '') {
       let res = http({
         method: "PUT",
-        url: "http://120.55.59.119/api/user",
+        url: this.data.server + "/api/user",
         data: {
           openId: wx.getStorageSync('openId'),
           username: this.data.resumeInfo.name,

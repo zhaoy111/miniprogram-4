@@ -18,6 +18,8 @@ Page({
     page: 1,
     limit: 10,
     count: 10,
+    server: app.globalData.ip,
+    nextTry:false
   },
 
   onLoad(e) {
@@ -31,7 +33,7 @@ Page({
       count: 10,
       jobs: []
     })
-    this.getData()
+    
   },
 
   onShow: function () {
@@ -43,11 +45,12 @@ Page({
     })
     
     this.getSend()
+    this.getData()
   },
 
   async getSend() {
     let res = await http({
-      url:"http://120.55.59.119/api/job/send",
+      url: this.data.server + "/api/job/send",
       data:{
         openId:wx.getStorageSync('openId')
       },
@@ -60,20 +63,28 @@ Page({
     this.setData({
       loading: true
     })
+    let that = this
     let res = await http({
-      url: "http://120.55.59.119/api/jobs",
+      url: this.data.server + "/api/jobs",
       data: {
         page: this.data.page,
         limit: this.data.limit,
         status: true
       },
       method: "GET"
-    });
-    this.setData({
-      page: this.data.page + 1,
-      count: res.data.count,
-      value: '',
-      jobs: [...this.data.jobs, ...JSON.parse(JSON.stringify(res.data.data))],
+    }).then( d=> {
+      if(d.statusCode === 404){
+        that.setData({nextTry:true})
+      }else if(d.statusCode === 200){
+        that.setData({
+          page: that.data.page + 1,
+          count: d.data.count,
+          value: '',
+          jobs: [...that.data.jobs, ...JSON.parse(JSON.stringify(d.data.data))],
+        });
+      }else{
+        that.setData({nextTry:true})
+      }
     });
     this.setData({
       loading: false
@@ -84,8 +95,9 @@ Page({
     this.setData({
       loading: true
     })
+    let that = this
     let res = await http({
-      url: "http://120.55.59.119/api/jobs",
+      url: this.data.server + "/api/jobs",
       data: {
         page: this.data.page,
         limit: this.data.limit,
@@ -93,11 +105,16 @@ Page({
         msg:this.data.value
       },
       method: "GET"
-    });
-    this.setData({
-      page: this.data.page + 1,
-      count: res.data.count,
-      jobs: [...this.data.jobs, ...JSON.parse(JSON.stringify(res.data.data))],
+    }).then( d=> {
+      if(d.statusCode === 200){
+        that.setData({
+          page: that.data.page + 1,
+          count: d.data.count,
+          jobs: [...that.data.jobs, ...JSON.parse(JSON.stringify(d.data.data))],
+        });
+      }else{
+        that.setData({nextTry:true})
+      }
     });
     this.setData({
       loading: false
@@ -110,7 +127,7 @@ Page({
 
   // 下拉触底获取数据方法 开始
   scrollHandler(e) {
-
+    this.setData({nextTry:false})
     if(this.tip()){
       if(this.data.value!=""){
         this.getSearchData()
@@ -131,7 +148,8 @@ Page({
     this.setData({
       jobs: [],
       page: 1,
-      count: 10
+      count: 10,
+      nextTry:false,
     })
     this.getSearchData().then(
       this.tip()

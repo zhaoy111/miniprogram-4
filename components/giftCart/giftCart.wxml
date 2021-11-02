@@ -5,7 +5,7 @@
     <van-col span="6">
       <navigator url="/pages/giftDetail/index?gift_id={{gift_id}}" hover-class="none">
         <view class="add_gift_button" style="padding-left:15rpx">
-          <van-image fit="widthFix" width="80" src="{{gift_image}}"></van-image>
+          <van-image fit="fit" width="80" height="60" src="{{gift_image}}"></van-image>
         </view>
       </navigator>
     </van-col>

@@ -13,7 +13,7 @@ Component({
   data: {
     active: 0,
     list: [{
-        text: "首页",
+        text: "岗位",
         url: "/pages/index/index"
       },
       {

@@ -19,6 +19,8 @@
     </van-swipe-cell>
   </view>
 </view>
+<view wx:if="{{ noData }}" style="margin: 20px 0px;text-align: center;">- 无更多数据 -</view>
+<view wx:if="{{ nextTry }}" style="margin: 20px 0px;text-align: center;" bindtap="getLog">- 加载失败，点击重新加载 -</view>
 <!-- 未读/已读状态切换 结束 -->
 <!-- 未读消息列表 开始 -->
 <!-- <view wx:if="{{active==0}}">

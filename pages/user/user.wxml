@@ -32,12 +32,12 @@
         <view class="font"><text style="color:red;font-weight:900">| </text>我的简历</view>
       </navigator>
     </van-col>
-    <van-col span="6">
+    <!-- <van-col span="6">
       <view class="icon">
         <van-icon name="notes-o" size="35" />
       </view>
       <view class="font"><text style="color:red;font-weight:900">| </text>我的测评</view>
-    </van-col>
+    </van-col> -->
     <van-col span="6">
       <navigator url="/pages/send/index" hover-class="none">
         <view class="icon">
@@ -46,12 +46,12 @@
         <view class="font"><text style="color:red;font-weight:900">| </text>我的投递</view>
       </navigator>
     </van-col>
-    <van-col span="6">
+    <!-- <van-col span="6">
       <view class="icon">
         <van-icon name="contact" size="35" />
       </view>
       <view class="font"><text style="color:red;font-weight:900">| </text>我的工号</view>
-    </van-col>
+    </van-col> -->
   </van-row>
 </view>
 <!-- 简历与测评 结束-->
@@ -63,18 +63,21 @@
   </view>
   <van-row>
     <van-col span="6">
-      <view class="icon">
-        <van-icon name="friends-o" size="35" />
-      </view>
-      <view class="font"><text style="color:red;font-weight:900">| </text>我的邀请</view>
+      <navigator url="/pages/shopHistory/index" hover-class="none">
+        <view class="icon">
+          <van-icon name="cart-o" size="35" />
+        </view>
+        <view class="font"><text style="color:red;font-weight:900">| </text>我的兑换</view>
+      </navigator>
+
     </van-col>
     <van-col span="6">
       <navigator url="/pages/credits/index" hover-class="none">
-      <view class="icon">
-        <van-icon name="diamond-o" size="35" />
-      </view>
-      <view class="font"><text style="color:red;font-weight:900">| </text>我的积分</view>
-    </navigator>
+        <view class="icon">
+          <van-icon name="diamond-o" size="35" />
+        </view>
+        <view class="font"><text style="color:red;font-weight:900">| </text>我的积分</view>
+      </navigator>
     </van-col>
 
   </van-row>
@@ -97,21 +100,21 @@
     </van-col>
     <van-col span="6">
       <!-- <navigator url="/pages/idea/index" hover-class="none"> -->
-        <button open-type='feedback' class="font item">
-      <view class="icon">
-        <van-icon name="comment-o" size="35" />
-      </view>
-      <view><text style="color:red;font-weight:900">| </text>意见反馈</view>
-    <!-- </navigator> -->
-  </button>
+      <button open-type='feedback' class="font item">
+        <view class="icon">
+          <van-icon name="comment-o" size="35" />
+        </view>
+        <view><text style="color:red;font-weight:900">| </text>意见反馈</view>
+        <!-- </navigator> -->
+      </button>
     </van-col>
     <van-col span="6">
       <button open-type='contact' class="font item">
-      <view class="icon">
-        <van-icon name="question-o" size="35" />
-      </view>
-      <view ><text style="color:red;font-weight:900">| </text>在线客服</view>
-    </button>
+        <view class="icon">
+          <van-icon name="question-o" size="35" />
+        </view>
+        <view><text style="color:red;font-weight:900">| </text>在线客服</view>
+      </button>
     </van-col>
   </van-row>
 </view>

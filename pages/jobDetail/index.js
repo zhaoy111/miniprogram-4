@@ -11,7 +11,8 @@ Page({
     job_panel: {},
     job_id: 0,
     show:false,
-    repetition:false
+    repetition:false,
+    server:getApp().globalData.ip
   },
   /**
    * 生命周期函数--监听页面加载
@@ -60,7 +61,7 @@ Page({
         'content-type':'application/x-www-form-urlencoded'
       },
       method:"POST",
-      url:"http://120.55.59.119/api/job/send",
+      url: this.data.server + "/api/job/send",
       data:{
         jobId:this.data.job_id,
         openId:wx.getStorageSync('openId')
@@ -91,7 +92,7 @@ Page({
 
   async getData(){
     let job = await http({
-      url: "http://120.55.59.119/api/job",
+      url:  this.data.server + "/api/job",
       data: {
         jobId : this.data.job_id
       }

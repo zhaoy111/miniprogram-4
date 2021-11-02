@@ -192,6 +192,7 @@ Page({
       method: "GET"
     }).then(d => {
       if (d.data.code === 0) {
+        d.data.data.gift_image = d.data.data.gift_image.indexOf("/")===0 ? this.data.ip + d.data.data.gift_image : d.data.data.gift_image
         this.setData({
           gift_detail: d.data.data,
           deal_status: d.data.data.count > 0
