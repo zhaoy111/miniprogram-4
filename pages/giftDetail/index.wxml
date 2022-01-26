@@ -1,5 +1,5 @@
 <view>
-  <van-image width="375.2" height="200" use-error-slot alt="图片加载失败" fit="fit" src="{{gift_detail.gift_image}}" >
+  <van-image width="375" height="200" use-error-slot alt="图片加载失败" fit="fill" src="{{gift_detail.gift_image}}" >
   </van-image>
 </view>
 <view class="desc">
@@ -23,7 +23,7 @@
 </view>
 <van-divider contentPosition="center">活动规则</van-divider>
 <view class="tip">
-  <rich-text nodes="{{tip}}"></rich-text>
+  <!-- <rich-text nodes="{{tip}}"></rich-text> -->
 </view>
 
 <van-dialog closeOnClickOverlay="true" use-slot title="请选择收货方式并确认兑换数量" show="{{ show }}" show-cancel-button

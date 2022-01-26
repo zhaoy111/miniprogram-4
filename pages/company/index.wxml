@@ -60,14 +60,14 @@
 
 <!-- 公司相册 开始 -->
 <view>
-  <view class="title">公司相册({{media.videos.length + media.images.length}})</view>
+  <view class="title">公司相册({{media.images.length}})</view>
   <scroll-view scroll-x="true">
     <view style="display:flex">
-      <view style="width:600rpx;margin:10rpx" wx:for="{{media.videos}}" wx:key="this">
+      <!-- <view style="width:600rpx;margin:10rpx" wx:for="{{media.videos}}" wx:key="this">
         <video muted="true" show-mute-btn="true" src="{{item}}" object-fit="fill"></video>
-      </view>
-      <view style="width:600rpx;margin:10rpx" wx:for="{{media.images}}" wx:key="this">
-        <van-image src="{{item}}" width="600rpx" height="100%" fit="fill"></van-image>
+      </view> -->
+      <view style="margin:10rpx；width=385px" wx:for="{{media.images}}" wx:key="this">
+        <van-image src="{{item}}" width="375px" height="150px" fit="fill"></van-image>
       </view>
     </view>
   </scroll-view>

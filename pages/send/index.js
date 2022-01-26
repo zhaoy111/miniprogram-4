@@ -86,11 +86,17 @@ Page({
       send_job:[]
     })
     res.data.data.forEach(send => {
+      if(!send.two_interview){
+        
+      }
       let steps = JSON.parse(JSON.stringify(this.step));
       for (var i = 0; i <= send.active; i++) {
         if(i!==4){
-          steps[i].desc = this.getdate((send["date" + (i + 1)] + "").split(" ")[0])
+          steps[i].desc =  send["date" + (i + 1)] ? this.getdate(send["date" + (i + 1)]).split(" ")[0] : "待定时间"
         }
+      }
+      if(!send.two_interview){
+        steps.splice(2,1)
       }
       send.steps = steps;
       this.data.send_job.push(send)

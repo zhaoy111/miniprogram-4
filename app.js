@@ -1,7 +1,8 @@
 // app.js
+
 App({
   data_test: {
-    
+
     jobs_test: [{
         job_id: 123,
         job_name: '智慧物流工程师',
@@ -175,12 +176,12 @@ App({
     // 积分规则 开始
     help: '<div style="white-space: pre;">1、转发你的邀请码\n\t详情请见：我的-邀请码</div>' +
       '<div style="white-space: pre;">2、被邀请用户完成注册，+1分</div>' +
-      '<div style="white-space: pre;">3、被邀请用户完成简历提交，+1分</div>' +
-      '<div style="white-space: pre;">4、被邀请用户简历合格，+10分</div>' +
-      '<div style="white-space: pre;">5、被邀请用户简历邀请面试，+50分</div>' +
-      '<div style="white-space: pre;">6、被邀请用户简历通过面试，+100分</div>' +
-      '<div style="white-space: pre;">7、被邀请用户签订合同，+300分</div>' +
-      '<div style="white-space: pre;">8、被邀请用户入职满3个月，+1000分</div>',
+      '<div style="white-space: pre;">3、被邀请用户保存简历，+5分</div>' +
+      '<div style="white-space: pre;">4、被邀请用户投递简历，+10分</div>' +
+      '<div style="white-space: pre;">5、被邀请用户初审成功，+50分</div>' +
+      '<div style="white-space: pre;">6、被邀请一面成功，+100分</div>' +
+      '<div style="white-space: pre;">7、被邀请二面成功，+300分</div>' +
+      '<div style="white-space: pre;">8、被邀请用户签订合同成功，+1000分</div>',
     // 积分规则 结束
 
     //礼物列表 开始
@@ -323,7 +324,7 @@ App({
       number: 1,
       gift_id: 2,
       tip: '-500'
-    },{
+    }, {
       log_id: 1,
       success: true,
       content: '耳机',
@@ -331,8 +332,7 @@ App({
       number: 1,
       gift_id: 2,
       tip: '-500'
-    },
-  ],
+    }, ],
     lock_log: [{
         content: '未知原因锁定',
         date1: '2021年9月1日',
@@ -379,34 +379,44 @@ App({
 
     // 登录
     wx.login({
-      success(res){
+      success(res) {
         wx.request({
           url: "https://www.jaclogistic.cn/job/api/user",
           method: "GET",
-          data:{
+          data: {
             code: res.code,
-            inviter: option.inviter
+            inviter: option.query.inviter
           },
           header: {
             'content-type': 'application/x-www-form-urlencoded',
             // 'Content-Type': 'application/json'
           },
-          success(res1){
-            if(res1.data.code==0){
+          success(res1) {
+            if (res1.data.code == 0) {
               let userInfo = wx.getStorageSync('userInfo')
-              if(userInfo){
-                let msg = JSON.parse(res1.data.msg)
-                msg.avatarUrl = userInfo.avatarUrl;
-                msg.nickName = userInfo.nickName;
-                wx.setStorageSync('userInfo',msg)
-              }else{
-                wx.setStorageSync('userInfo', JSON.parse(res1.data.msg));
+              if (userInfo) {
+                if (res1.data.msg) {
+                  let msg = JSON.parse(res1.data.msg)
+                  msg.avatarUrl = userInfo.avatarUrl;
+                  msg.nickName = userInfo.nickName;
+                  wx.setStorageSync('userInfo', msg)
+                }
+              } else {
+                if (res1.data.msg) {
+                  wx.setStorageSync('userInfo', JSON.parse(res1.data.msg));
+                } else {
+                  let msg = {
+                    avatarUrl: '',
+                    nickName: ''
+                  }
+                  wx.setStorageSync('userInfo', msg);
+                }
               }
               wx.setStorageSync('openId', res1.data.data);
               wx.setStorageSync('shareCode', res1.data.shareCode);
             }
           },
-          fail(res2){
+          fail(res2) {
             console.log(res2)
           }
         })
@@ -425,8 +435,9 @@ App({
     }
 
   },
+
   globalData: {
     userInfo: null,
-    ip:"https://www.jaclogistic.cn/job"
+    ip: "https://www.jaclogistic.cn/job"
   }
 })

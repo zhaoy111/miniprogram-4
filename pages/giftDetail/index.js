@@ -99,7 +99,7 @@ Page({
           } else {
             wx.showToast({
               title: '兑换失败',
-              icon: 'success',
+              icon: 'error',
               success: function (params) {
 
               }
@@ -141,7 +141,7 @@ Page({
       } else {
         wx.showToast({
           title: '兑换失败',
-          icon: 'success',
+          icon: 'error',
           success: function (params) {
           }
         })
@@ -165,6 +165,7 @@ Page({
       })
       wx.showToast({
         title: '兑换成功',
+        icon: 'success',
       })
     } else {
       this.setData({
@@ -172,6 +173,7 @@ Page({
       })
       wx.showToast({
         title: '兑换失败',
+        icon: "error"
       })
     }
   },

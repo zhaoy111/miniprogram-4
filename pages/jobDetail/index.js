@@ -88,6 +88,7 @@ Page({
    */
   onShow: function () {
     this.getData()
+    
   },
 
   async getData(){

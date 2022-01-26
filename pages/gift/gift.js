@@ -1,5 +1,6 @@
 const {
-  http
+  http,
+  shareImage
 } = require("../../utils/request");
 
 // pages/gift/gift.js
@@ -32,17 +33,25 @@ Page({
     gifts: [],
     show: false,
     show2: false,
-    help: '',
+    help: '<div style="white-space: pre;">1、转发你的邀请码\n\t详情请见：我的-邀请码</div>' +
+      '<div style="white-space: pre;">2、被邀请用户完成注册，+0分</div>' +
+      '<div style="white-space: pre;">3、被邀请用户保存简历，+0分</div>' +
+      '<div style="white-space: pre;">4、被邀请用户投递简历，+0分</div>' +
+      '<div style="white-space: pre;">5、被邀请用户初审成功，+0分</div>' +
+      '<div style="white-space: pre;">6、被邀请一面成功，+0分</div>' +
+      '<div style="white-space: pre;">7、被邀请二面成功，+0分</div>' +
+      '<div style="white-space: pre;">8、被邀请用户签订合同成功，+0分</div>',
     loading: false
   },
 
   getUserInfo(event) {
-    
+
   },
 
   onClose() {
     this.setData({
-      show: false
+      show: false,
+      show2: false
     });
   },
 
@@ -50,13 +59,10 @@ Page({
     this.setData({
       show2: false
     });
-
   },
 
   getShow2() {
-    this.setData({
-      show2: true
-    });
+    shareImage(this.data.image).then(res => console.log(res)).catch(res => console.log(res)).finally(res => console.log(res));
   },
 
   getHelp(e) {
@@ -82,14 +88,15 @@ Page({
     })
     this.setData({
       image: this.data.ip + "/api/inviter/img?" + this.data.image + "openId=" + wx.getStorageSync("openId") + "&width=200",
-      help: wx.getStorageSync('data_test').help,
     });
-    
+
+    this.getHelps()
+
     //获取礼物分类
     http({
       url: this.data.ip + "/api/giftTypesAll",
       method: "GET"
-    }).then((res1) => {
+    }).then(res1 => {
       if (res1.data.code == 0) {
         res1.data.data.forEach(d => {
           this.data.option1.push({
@@ -103,9 +110,7 @@ Page({
       }
     });
     //获取礼物分类结束
-
     this.getGift()
-
 
   },
 
@@ -130,12 +135,12 @@ Page({
       method: "GET"
     }).then((res1) => {
       if (res1.data.code == 0) {
+        res1.data.data.forEach(gift => {
+          if (gift.gift_image.startsWith("/")) {
+            gift.gift_image = this.data.ip + gift.gift_image
+          }
+        })
         if (res1.data.data.length < 10) {
-          res1.data.data.forEach( gift => {
-            if(gift.gift_image.indexOf("/")===0){
-              gift.gift_image = this.data.ip + gift.gift_image
-            }
-          })
           this.setData({
             newjob: true,
             loading: false,
@@ -148,7 +153,7 @@ Page({
             gifts: [...this.data.gifts, ...res1.data.data]
           })
         }
-      }else{
+      } else {
         this.setData({
           newjob: false,
           loading: false,
@@ -184,6 +189,35 @@ Page({
     });
   },
 
+  getHelps: function (params) {
+    http({
+      url: this.data.ip + "/api/rule",
+      method: "GET"
+    }).then((res1) => {
+      if (res1.data.code == 0) {
+        let ids = ["00", "02", "07", "09", "11", "13"]
+        let value = ["邀请的用户注册", "邀请的用户投递简历", "邀请的用户初审成功", "邀请的用户一面成功", "邀请的用户二面成功", "邀请的用户签订合同成功"]
+        let temp = []
+        var str = ""
+        ids.forEach((id, index) => {
+          let mark = res1.data.data.find(data => {
+            if (data.id == id) {
+              return data;
+            }
+          }).mark
+
+          if (mark > 0) {
+            temp.push("<div style='margin-top: 10px'>" + (temp.length + 1) + "、" + value[index] + "，+" + mark + "积分" + "</div>")
+          }
+        })
+        temp.forEach(data => str += data)
+        this.setData({
+          help: str,
+        })
+      }
+    });
+  },
+
   onChange: function (e) {
     this.setData({
       searchValue: e.detail,
@@ -194,7 +228,8 @@ Page({
   searchGifts(e) {
     this.setData({
       newjob: false,
-      gifts: []
+      gifts: [],
+      page: 1,
     })
     this.getGift()
   },
@@ -203,8 +238,8 @@ Page({
     http({
       url: this.data.ip + "/api/user/info",
       method: "GET",
-      data:{
-        openId:wx.getStorageSync('openId')
+      data: {
+        openId: wx.getStorageSync('openId')
       }
     }).then((res1) => {
       if (res1.data.code == 0) {
@@ -244,9 +279,38 @@ Page({
     this.setData({
       credits_data: wx.getStorageSync('data_test_credit').available_credits
     });
+    this.getHelps();
     this.getGift()
     this.getCart();
     this.getScore();
+    // this.makeShareImage(this.data.image)
+  },
+
+  makeShareImage(image) {
+    const query = wx.createSelectorQuery();
+    query.select('#myCanvas')
+      .fields({
+        node: true,
+        size: true
+      })
+      .exec((res) => {
+        const canvas = res[0].node;
+
+        const dpr = wx.getSystemInfoSync().pixelRatio;
+        canvas.width = res[0].width * dpr
+        canvas.height = res[0].height * dpr
+        const ctx = canvas.getContext('2d')
+        ctx.scale(dpr, dpr)
+        //canvas.createImage()在微信版本7.0.20会有报错，进入不了onload。 但是在7.0.21已经修复。
+        let pic = canvas.createImage();
+        ctx.fillStyle = "rgb(255,255,255)";
+        ctx.fillRect(0, 0, 300, 1000)
+        pic.src = image; //可以是本地，也可以是网络图片
+        pic.onload = () => {
+          //不要用官方示例的图片路径，包括网上在这之前所有的文档/示例里是地址链接的都不要看了，要用image对象！
+          ctx.drawImage(pic, 0, 0, 80, 80);
+        }
+      })
   },
 
   /**

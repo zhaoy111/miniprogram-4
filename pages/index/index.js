@@ -1,13 +1,15 @@
 // index.js
 // 获取应用实例
 import {
-  http
+  http, shareImage
 } from '../../utils/request';
 
 const app = getApp()
 
 Page({
   data: {
+    background: ['demo-text-1', 'demo-text-2', 'demo-text-3'],
+    showClose:false,
     indexImage: [],
     loading: false,
     newjob: false,
@@ -19,14 +21,31 @@ Page({
     limit: 10,
     count: 10,
     server: app.globalData.ip,
-    nextTry:false
+    nextTry:false,
+    show: true,
+  },
+
+  onClickShow() {
+    this.setData({ show: true });
+  },
+
+  onClickHide() {
+    this.setData({ show: false });
+  },
+
+  noop() {},
+
+  closeOverlay() {
+    this.setData({ show: false });
+  },
+
+  changeTip(event) {
+    if(this.data.background.length -1 === event.detail.current){
+      this.setData({showClose:true})
+    }
   },
 
   onLoad(e) {
-
-    this.setData({
-      indexImage: wx.getStorageSync('data_test').indexImage,
-    })
     this.setData({
       page: 1,
       limit: 10,
@@ -34,6 +53,21 @@ Page({
       jobs: []
     })
     
+    http({
+      method: "GET",
+      url: app.globalData.ip + "/api/settings",
+      header: {
+        // 'content-type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json'
+      },
+    }).catch(d => {
+      console.log(d);
+    }).then(d => {
+      let data = JSON.parse(JSON.stringify(d.data.data));
+      this.setData({
+        indexImage:data.indexPhotos.split(",")
+      })
+    })
   },
 
   onShow: function () {

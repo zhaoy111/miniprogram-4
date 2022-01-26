@@ -13,3 +13,25 @@ export const http=(params)=>{
     })
   })
 }
+
+
+export const shareImage=(img)=>{
+  return new Promise((resolve, reject)=>{
+    wx.downloadFile({
+      url: img,
+      success: (res) => {
+        console.log(res.tempFilePath);
+        wx.showShareImageMenu({
+          path: res.tempFilePath
+        })
+        resolve(res)
+      },
+      fail:(res) => {
+        reject(res)
+      },
+      err:(res) => {
+        console.log(res);
+      }
+    })
+  })
+}

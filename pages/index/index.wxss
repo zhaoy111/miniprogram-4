@@ -14,3 +14,29 @@ page{
 .search_row{
   background-color: #fff;
 }
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90%;
+}
+
+.block {
+  width: 300px;
+  height: 500px;
+  border-radius: 16px;
+}
+
+.skip{
+  margin-top: 20px;
+  width: 300px;
+  height: 30px;
+  background-color: rgb(255, 253, 253);
+  text-align: center;
+  border-radius: 16px;
+  font-size: 21px;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 100;
+}

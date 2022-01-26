@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
+    userInfo: wx.getStorageSync('userInfo'),
     hasUserInfo: false,
     canIUseGetUserProfile: false,
   },
@@ -14,9 +14,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '页面加载中'
-    });
     this.setData({userInfo:wx.getStorageSync('userInfo')})
     if(!this.data.userInfo.avatarUrl){
       this.setData({
@@ -42,20 +39,20 @@ Page({
   },
 
   getUserProfile(e) {
+    let that = this
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认
     // 开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
     wx.getUserProfile({
       desc: '用于完善会员资料', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
       success: (res) => {
-        this.data.userInfo.avatarUrl = res.userInfo.avatarUrl;
-        console.log(res.userInfo.avatarUrl);
-        this.data.userInfo.nickName = res.userInfo.nickName;
-        this.setData({
-          userInfo: this.data.userInfo,
+        that.data.userInfo.avatarUrl = res.userInfo.avatarUrl;
+        that.data.userInfo.nickName = res.userInfo.nickName;
+        that.setData({
+          userInfo: that.data.userInfo,
           hasUserInfo: true
         });
         wx.setStorage({
-          data: this.data.userInfo,
+          data: that.data.userInfo,
           key: 'userInfo',
         })
       }

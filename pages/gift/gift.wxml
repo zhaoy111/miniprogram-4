@@ -1,5 +1,5 @@
 <!-- 积分规则 + 邀请码 开始 -->
-<van-dialog use-slot title="如何获取积分？" show="{{ show }}" bind:close="onClose" bind:getuserinfo="getUserInfo">
+<!-- <van-dialog use-slot title="如何获取积分？" show="{{ show }}" bind:close="onClose" bind:getuserinfo="getUserInfo">
   <view class="help">
     <rich-text nodes="{{help}}"></rich-text>
   </view>
@@ -32,12 +32,26 @@
       </navigator>
     </van-col>
   </van-row>
-</view>
+</view> -->
 <!-- 积分规则 + 邀请码  结束 -->
 <!-- 搜索框 + 购物车 面板 开始 -->
 <view class="search_panel">
   <van-row gutter="10">
-    <van-col span="22">
+    <van-col span="12">
+      <navigator url="/pages/credits/index" hover-class="none">
+        <!-- <view class="tip" style="color:black"> -->
+          我的积分：<text style="color:red">{{score}}</text>
+        <!-- </view> -->
+      </navigator>
+    </van-col>
+    <van-col span="12">
+      <navigator url="/pages/shopHistory/index" hover-class="none">
+        <!-- <view class="cart"> -->
+          购物车：<van-icon name="cart-o" size="20px" info="{{count == 0 ? '' : count}}" />
+        <!-- </view> -->
+      </navigator>
+    </van-col>
+    <van-col span="24">
       <van-cell-group>
         <van-field value="{{ searchValue }}" placeholder="请输入关键文字搜索" border="{{ true }}" bind:change="onChange"
           use-button-slot>
@@ -45,16 +59,12 @@
         </van-field>
       </van-cell-group>
     </van-col>
-    <van-col span="2">
-      <navigator url="/pages/shopHistory/index" hover-class="none">
-        <view class="cart">
-          <van-icon name="cart-o" size="30px" info="{{count == 0 ? '' : count}}" />
-        </view>
-      </navigator>
-    </van-col>
   </van-row>
 </view>
 <!-- 搜索框 + 购物车 面板 结束 -->
+<!-- 测试 开始 -->
+<!-- <canvas id="myCanvas" type="2d" width="375px" height="600px"></canvas> -->
+<!-- 测试 结束 -->
 <!-- 礼物类别 开始 -->
 <view style="margin-top:20rpx">
   <van-dropdown-menu>
@@ -63,13 +73,13 @@
 </view>
 <!--  礼物类别 结束 -->
 <!-- 积分兑换礼品 开始 -->
-<view style="margin-bottom: 50px;">
+<view style="margin-bottom: 100px;">
   <giftCart wx:for="{{gifts}}" gift_id="{{item.gift_id}}" gift_image="{{item.gift_image}}"
     gift_name="{{item.gift_name}}" gift_desc="{{item.gift_desc}}" gift_type="{{item.gift_type}}"
     gift_credit="{{item.gift_credit}}" wx:key="this"></giftCart>
   <view style="text-align:center">
     <van-loading wx:if="{{loading}}" color="rgb(25, 137, 250)" size="20" type="spinner">加载中...</van-loading>
-    <text wx:if="{{newjob}}">- 无更多数据 -</text>
+    <!-- <text wx:if="{{newjob}}">- 无更多数据 -</text> -->
   </view>
 </view>
 <!-- 积分兑换礼品 结束 -->

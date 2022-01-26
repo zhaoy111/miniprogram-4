@@ -8,10 +8,6 @@
   font-size:45rpx;
 }
 
-.content{
-  
-}
-
 .content_vertical{
   height: 45px;
   width: 65px;

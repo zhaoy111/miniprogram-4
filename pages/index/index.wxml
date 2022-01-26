@@ -1,36 +1,61 @@
+<van-overlay show="{{ show }}" bind:click="onClickHide" z-index="2">
+  <view class="wrapper">
+    <view class="block" catch:tap="noop">
+      <swiper easing-function="easeInOutCubic" style="height: 450px;" indicator-dots="true"
+      bindchange="changeTip">
+        <block wx:for="{{background}}" wx:key="*this">
+          <swiper-item>
+            <view class="swiper-item {{item}}">
+              <van-image radius="16" height="450" width="300" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+      <view class="skip start" wx:if="{{showClose}}" bindtap="closeOverlay">开始使用</view>
+      <view class="skip" wx:else bindtap="closeOverlay">跳过</view>
+    </view>
+  </view>
+</van-overlay>
+<!-- <van-panel title="标题" desc="描述信息" status="状态">
+  <view>内容</view>
+  <view slot="footer">
+    <van-button size="small">按钮</van-button>
+    <van-button size="small" type="danger">按钮</van-button>
+  </view>
+</van-panel> -->
+<van-notice-bar left-icon="volume-o" mode="closeable" scrollable="true" text="点击下方图片了解更多" />
 <navigator url="/pages/company/index" hover-class="none">
   <swiper autoplay="true" circular="true" indicator-dots="true">
     <swiper-item wx:for="{{indexImage}}" wx:key="url">
-      <van-image width="100%" height="100%" fill="contain" src="{{item.url}}" />
+      <van-image width="100%" height="100%" fill="contain" src="{{item}}" />
     </swiper-item>
   </swiper>
 </navigator>
-<view  class="search_row">
-<van-row gutter="10">
-  <van-col span="18" offset="2">
-    <van-cell-group>
-      <van-field value="{{ value }}" border="true" bind:input="onInput" placeholder="请输入关键文字搜索" use-button-slot>
-        <van-button slot="button" size="small" type="primary" bind:click="onSearch">
-          查询
-        </van-button>
-      </van-field>
-    </van-cell-group>
-  </van-col>
-  <van-col span="2">
-    <navigator url="/pages/send/index" hover-class="none">
-      <van-icon name="todo-list-o" info="{{send_num==0?'':send_num}}" size="30" style="margin-top:10px" />
-    </navigator>
-  </van-col>
-</van-row>
+<view class="search_row">
+  <van-row gutter="10">
+    <van-col span="18" offset="2">
+      <van-cell-group>
+        <van-field value="{{ value }}" border="true" bind:input="onInput" placeholder="请输入关键文字搜索" use-button-slot>
+          <van-button slot="button" size="small" type="primary" bind:click="onSearch">
+            查询
+          </van-button>
+        </van-field>
+      </van-cell-group>
+    </van-col>
+    <van-col span="2">
+      <navigator url="/pages/send/index" hover-class="none">
+        <van-icon name="todo-list-o" info="{{send_num==0?'':send_num}}" size="30" style="margin-top:10px" />
+      </navigator>
+    </van-col>
+  </van-row>
 </view>
 
 <view class="job_carts">
-  <jobCart wx:for="{{jobs}}" job_id="{{item.job_id}}" job_name="{{item.job_name}}" job_type="{{item.job_type}}"
-    job_date="{{item.job_date}}" job_address="{{item.job_address}}" job_salary="{{(item.job_salary_lowest && item.job_salary_highest) ? item.job_salary_lowest + '-' + item.job_salary_highest:item.job_salary_lowest}}" wx:key="id">
+  <jobCart wx:for="{{jobs}}" job_id="{{item.job_id}}" job_name="{{item.job_name}}" job_type="{{item.job_type}}" job_date="{{item.job_date}}" job_address="{{item.job_address}}" job_salary="{{(item.job_salary_lowest && item.job_salary_highest) ? item.job_salary_lowest + '-' + item.job_salary_highest:item.job_salary_lowest}}" wx:key="id">
   </jobCart>
   <view style="text-align:center">
     <van-loading wx:if="{{loading}}" color="rgb(25, 137, 250)" size="20" type="spinner">加载中...</van-loading>
-    <text wx:if="{{newjob}}">- 无更多数据 -</text>
-    <text wx:if="{{nextTry}}" bindtap="onReachBottom" >- 点击重新加载 -</text>
+    <!-- <text wx:if="{{newjob}}">- 无更多数据 -</text> -->
+    <!-- <text wx:if="{{nextTry}}" bindtap="onReachBottom" >- 点击重新加载 -</text> -->
   </view>
 </view>

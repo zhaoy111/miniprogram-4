@@ -69,6 +69,9 @@ Page({
       }
     }).then((res1) => {
       if (res1.data.code == 0) {
+        res1.data.data.forEach( d=> {
+          d.date = this.getdate(d.date)
+        })
         this.setData({
           log: [...this.data.log,...res1.data.data],
           loading: false,
@@ -145,5 +148,13 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+
+  getdate(date) {
+    var now = new Date(Number.parseInt(date)),
+        y = now.getFullYear(),
+        m = now.getMonth() + 1,
+        d = now.getDate();
+    return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d);
+}
 })
